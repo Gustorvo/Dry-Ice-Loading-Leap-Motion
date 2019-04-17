@@ -35,7 +35,5 @@ public class LazerTeleport : MonoBehaviour {
         pos.x = lazer.hit.point.x;
         pos.z = lazer.hit.point.z;
         Player.transform.position = pos;
-
-        Debug.Log("test");
     }
 }
