@@ -1,0 +1,291 @@
+fileFormatVersion: 2
+guid: 528dad162324da3488d1c41713bf38a7
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: bolts
+    100004: bolts 1
+    100006: bolts 2
+    100008: bolts 3
+    100010: door 1
+    100012: door 1 1
+    100014: door 1 damage 1
+    100016: door 1 docbox
+    100018: door 1 original
+    100020: door 1 samage 003
+    100022: door 1 samage 2
+    100024: door 2
+    100026: door 2 damage 1
+    100028: door 2 damage 2
+    100030: door 2 original
+    100032: doorpart 1
+    100034: doorpart 2
+    100036: doorpart 3
+    100038: Object004
+    100040: RKN_t2_Container
+    100042: RKN_t2_container
+    100044: RKN_t2_door_AC
+    100046: RKN_t2_door_ICE
+    100048: RKN_t2_Lock1
+    100050: t_display
+    100052: t_display_2
+    100054: t_display_Door_Battery
+    100056: test material
+    100058: VRaySun001
+    100060: VRaySun001.Target
+    400000: //RootNode
+    400002: bolts
+    400004: bolts 1
+    400006: bolts 2
+    400008: bolts 3
+    400010: door 1
+    400012: door 1 1
+    400014: door 1 damage 1
+    400016: door 1 docbox
+    400018: door 1 original
+    400020: door 1 samage 003
+    400022: door 1 samage 2
+    400024: door 2
+    400026: door 2 damage 1
+    400028: door 2 damage 2
+    400030: door 2 original
+    400032: doorpart 1
+    400034: doorpart 2
+    400036: doorpart 3
+    400038: Object004
+    400040: RKN_t2_Container
+    400042: RKN_t2_container
+    400044: RKN_t2_door_AC
+    400046: RKN_t2_door_ICE
+    400048: RKN_t2_Lock1
+    400050: t_display
+    400052: t_display_2
+    400054: t_display_Door_Battery
+    400056: test material
+    400058: VRaySun001
+    400060: VRaySun001.Target
+    2100000: Main Light Grey
+    2100002: Steel
+    2100004: 'Material #968'
+    2100006: Bumper
+    2100008: Black_Gum
+    2100010: Aluminium
+    2100012: Sticker_04
+    2100014: Blue
+    2100016: Glass
+    2100018: 'Material #12'
+    2100020: 'Material #13'
+    2100022: Display_Main
+    2100024: Display_change
+    2300000: bolts 1
+    2300002: bolts 2
+    2300004: bolts 3
+    2300006: door 1 damage 1
+    2300008: door 1 docbox
+    2300010: door 1 original
+    2300012: door 1 samage 2
+    2300014: door 2 damage 1
+    2300016: door 2 damage 2
+    2300018: door 2 original
+    2300020: doorpart 1
+    2300022: doorpart 2
+    2300024: doorpart 3
+    2300026: Object004
+    2300028: RKN_t2_Container
+    2300030: RKN_t2_door_AC
+    2300032: RKN_t2_door_ICE
+    2300034: RKN_t2_Lock1
+    2300036: t_display
+    2300038: t_display_2
+    2300040: t_display_Door_Battery
+    3300000: bolts 1
+    3300002: bolts 2
+    3300004: bolts 3
+    3300006: door 1 damage 1
+    3300008: door 1 docbox
+    3300010: door 1 original
+    3300012: door 1 samage 2
+    3300014: door 2 damage 1
+    3300016: door 2 damage 2
+    3300018: door 2 original
+    3300020: doorpart 1
+    3300022: doorpart 2
+    3300024: doorpart 3
+    3300026: Object004
+    3300028: RKN_t2_Container
+    3300030: RKN_t2_door_AC
+    3300032: RKN_t2_door_ICE
+    3300034: RKN_t2_Lock1
+    3300036: t_display
+    3300038: t_display_2
+    3300040: t_display_Door_Battery
+    4300000: bolts 1
+    4300002: bolts 2
+    4300004: bolts 3
+    4300006: doorpart 2
+    4300008: doorpart 1
+    4300010: doorpart 3
+    4300012: Object004
+    4300014: door 1 damage 1
+    4300016: door 1 original
+    4300018: door 1 samage 2
+    4300020: door 1 docbox
+    4300022: door 2 original
+    4300024: door 2 damage 2
+    4300026: door 2 damage 1
+    4300028: RKN_t2_Container
+    4300030: RKN_t2_door_AC
+    4300032: RKN_t2_door_ICE
+    4300034: RKN_t2_Lock1
+    4300036: t_display
+    4300038: t_display_2
+    4300040: t_display_Door_Battery
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Aluminium
+    second: {fileID: 2100000, guid: a1758e9215a9fa048b521e319aafa482, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black_Gum
+    second: {fileID: 2100000, guid: 2a75a100e40649f4fbc296e9ce02d65b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blue
+    second: {fileID: 2100000, guid: 45512ed80a212a344be2428dbb5bacbb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bumper
+    second: {fileID: 2100000, guid: f0cb24b819e39b64e83d4696bff71f77, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Display_Main
+    second: {fileID: 2100000, guid: 35a7b0bf152c73345a07c5a968ede449, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Display_change
+    second: {fileID: 2100000, guid: 4a40e1c74b43d9844b6d15e606c53f61, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: 88bbba38a289388418e37a0a2a9cbfcd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Main Light Grey
+    second: {fileID: 2100000, guid: 3e4ac8be6e0e8f1478c05f14461a9e1d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #12'
+    second: {fileID: 2100000, guid: c5648e1497987db4bbecf103dbb0ced4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #13'
+    second: {fileID: 2100000, guid: 60eed9e97e7ca1d43905880b3040aa01, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #968'
+    second: {fileID: 2100000, guid: 733ba81baca10104aa8b87f2ff8c1f5c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Steel
+    second: {fileID: 2100000, guid: 3c166a6c5cd96704f8fed2edea74bd90, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sticker_04
+    second: {fileID: 2100000, guid: d3ff01c9deef2d647b5cc2b04a61f441, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
