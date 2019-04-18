@@ -6,9 +6,10 @@ public class LazerTeleport : MonoBehaviour {
 
     public GameObject Player;
     public LazerPointer lazer;
+    public VRTeleporter teleporter;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -29,13 +30,14 @@ public class LazerTeleport : MonoBehaviour {
     public void TeleportMe(float speed)
     { // new implementation:
        // if (!lazer.Hidden)
-        //StartCoroutine(MoveOverSpeed(Player, new Vector3(lazer.hit.point.x, Player.transform.position.y, lazer.hit.point.z), speed));
-
-        Vector3 pos = Player.transform.position;
-        pos.x = lazer.hit.point.x;
-        pos.z = lazer.hit.point.z;
-        Player.transform.position = pos;
-        // added test for git
-        // added second line
+            //StartCoroutine(MoveOverSpeed(Player, new Vector3(lazer.hit.point.x, Player.transform.position.y, lazer.hit.point.z), speed));
+            teleporter.Teleport();
+        teleporter.ToggleDisplay(false);
+        //Vector3 pos = Player.transform.position;
+        //pos.x = lazer.hit.point.x;
+        //pos.z = lazer.hit.point.z;
+        //Player.transform.position = pos;
     }
+
+    
 }

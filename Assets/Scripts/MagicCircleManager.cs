@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Leap.Unity;
 using Leap;
+using UnityEngine.Events;
 
 
 public class MagicCircleManager : MonoBehaviour
 {
-
+    public UnityEvent OnCircleShow;
+    public UnityEvent OnCircleHide;
     public AnimationClip _animation;
     private Animation _myAnim;
     public float speed = 1;
@@ -28,6 +30,7 @@ public class MagicCircleManager : MonoBehaviour
             Target = gameObject;
 
         _myAnim = GetComponent<Animation>();
+        HideMagicCircle();
     }
 
     Hand ReturnHand()
@@ -66,18 +69,24 @@ public class MagicCircleManager : MonoBehaviour
         if (!isGrabbing)
         {
             objectHidden = false;
+            StartCoroutine(CheckPlayingState());
+
+            
             _myAnim.AddClip(_animation, "Show");
             _myAnim["Show"].speed = speed * -1;
             _myAnim["Show"].time = _myAnim["Show"].length;
             _myAnim.Play("Show");
+            //_myAnim.IsPlaying
         }
-
     }
 
     public void HideMagicCircle()
     {
         if (!objectHidden)
         {
+            StopCoroutine(CheckPlayingState());
+            OnCircleHide.Invoke();
+           
             objectHidden = true;
             _myAnim.AddClip(_animation, "Hide");
             _myAnim["Hide"].speed = speed * 1;
@@ -87,7 +96,13 @@ public class MagicCircleManager : MonoBehaviour
 
     }
 
-
+    IEnumerator CheckPlayingState()
+    {
+        while (_myAnim.isPlaying)
+            { yield return new WaitForEndOfFrame(); }
+        if (!objectHidden)
+            OnCircleShow.Invoke();
+    }
 
     void Update()
     {

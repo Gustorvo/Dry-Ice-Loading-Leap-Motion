@@ -5,7 +5,8 @@ using UnityEngine;
 public class VRTeleporter : MonoBehaviour
 {
     public float speed;
-
+    public Vector3 mvelocity = Vector3.one;
+    public float smoothTime = 0.3F;
     public GameObject positionMarker; // marker for display ground position
 
     public Transform bodyTransforn; // target transferred by teleport
@@ -18,7 +19,7 @@ public class VRTeleporter : MonoBehaviour
     public float strength = 10f; // Increasing this value will increase overall arc length
 
 
-    int maxVertexcount = 100; // limitation of vertices for performance. 
+    int maxVertexcount = 50; // limitation of vertices for performance. 
 
     private float vertexDelta = 0.08f; // Delta between each Vertex on arc. Decresing this value may cause performance problem.
 
@@ -42,7 +43,10 @@ public class VRTeleporter : MonoBehaviour
     {
         if (groundDetected)
         {
-            bodyTransforn.position = groundPos + lastNormal * 0.01f;
+            // bodyTransforn.position = groundPos + lastNormal * 0.01f;
+            StartCoroutine(MoveOverSpeed(bodyTransforn, (groundPos + lastNormal * 0.01f), 10));
+            ToggleDisplay(false);
+
         }
         else
         {
@@ -52,16 +56,13 @@ public class VRTeleporter : MonoBehaviour
 
     // Active Teleporter Arc Path
     public void ToggleDisplay(bool active)
-    {
+    {        
         arcRenderer.enabled = active;
         positionMarker.SetActive(active);
         displayActive = active;
     }
 
-
-
-
-
+   
     private void Awake()
     {
         arcRenderer = GetComponent<LineRenderer>();
@@ -69,13 +70,15 @@ public class VRTeleporter : MonoBehaviour
         positionMarker.SetActive(false);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (displayActive)
         {
             UpdatePath();
         }
     }
+
+    
 
 
     private void UpdatePath()
@@ -119,15 +122,27 @@ public class VRTeleporter : MonoBehaviour
 
         if (groundDetected)
         {
-            positionMarker.transform.position = groundPos + lastNormal * 0.1f;
-            //positionMarker.transform.position = Vector3.MoveTowards(positionMarker.transform.position, groundPos + lastNormal * 0.1f, speed* Time.fixedDeltaTime);
-            positionMarker.transform.LookAt(groundPos);
+            //positionMarker.transform.position = Vector3.SmoothDamp(positionMarker.transform.position, groundPos + lastNormal * 0.01f, ref mvelocity, smoothTime);
+
+
+            positionMarker.transform.position = groundPos + lastNormal * 0.01f; //original implementation
+            positionMarker.transform.LookAt(groundPos );
         }
 
         // Update Line Renderer
 
         arcRenderer.positionCount = vertexList.Count;
         arcRenderer.SetPositions(vertexList.ToArray());
+    }
+
+    public IEnumerator MoveOverSpeed(Transform objectToMove, Vector3 end, float speed)
+    {
+        // speed should be 1 unit per second
+        while (objectToMove.transform.position != end)
+        {
+            objectToMove.transform.position = Vector3.MoveTowards(objectToMove.transform.position, end, speed * Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
     }
 
 
