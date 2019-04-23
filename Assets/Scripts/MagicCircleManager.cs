@@ -10,20 +10,35 @@ public class MagicCircleManager : MonoBehaviour
 {
     public UnityEvent OnCircleShow;
     public UnityEvent OnCircleHide;
+    public UnityEvent OnCircleHideButPalmEndFacingFloor;
+    public UnityEvent OnCircleActiveAndPalmFacingFloor;
+    public UnityEvent OnPalmAcriveButGrabBegin;
+    public UnityEvent OnPalmEndFacingFloor;
+
     public AnimationClip _animation;
     private Animation _myAnim;
     public float speed = 1;
     public PinchDetector pinchScript;
+    public PalmDirectionDetector palmScript;
+    
+
     public GameObject Target;
     protected bool pinching;
     protected bool startPinch;
     protected bool endPinch;
     protected bool objectHidden;
+    protected bool palmFacingFloor;
+
+   
 
     Leap.Hand _hand;
     Controller controller = new Controller();
     private bool isGrabbing;
 
+    private void Start()
+    {
+        
+    }
     private void Awake()
     {
         if (Target == null)
@@ -47,14 +62,17 @@ public class MagicCircleManager : MonoBehaviour
 
     IEnumerator isGrabbingSmth()
     {
+        isGrabbing = false;
         while (pinching)
         {
             float probability = ReturnHand().GrabStrength;
-            if (probability > 0.5f)
+            if (probability > .5f)
                 isGrabbing = true;
+            else isGrabbing = false;
             yield return null;
         }
         isGrabbing = false;
+
     }
 
 
@@ -68,15 +86,17 @@ public class MagicCircleManager : MonoBehaviour
     {
         if (!isGrabbing)
         {
+            OnCircleShow.Invoke();
             objectHidden = false;
             StartCoroutine(CheckPlayingState());
+            StartCoroutine(CheckPalm());
 
-            
+
             _myAnim.AddClip(_animation, "Show");
             _myAnim["Show"].speed = speed * -1;
             _myAnim["Show"].time = _myAnim["Show"].length;
             _myAnim.Play("Show");
-            //_myAnim.IsPlaying
+           
         }
     }
 
@@ -84,10 +104,16 @@ public class MagicCircleManager : MonoBehaviour
     {
         if (!objectHidden)
         {
-            StopCoroutine(CheckPlayingState());
-            OnCircleHide.Invoke();
-           
             objectHidden = true;
+            StopCoroutine(CheckPlayingState());
+            StopCoroutine(CheckPalm());
+            if (palmScript.IsActive && !isGrabbing) OnCircleHide.Invoke(); // teleprot
+            else if (isGrabbing) OnPalmAcriveButGrabBegin.Invoke(); // red color
+            else OnCircleHideButPalmEndFacingFloor.Invoke();
+
+            
+
+
             _myAnim.AddClip(_animation, "Hide");
             _myAnim["Hide"].speed = speed * 1;
             _myAnim["Hide"].time = 0; // _myAnim["Hide"].length;
@@ -99,25 +125,60 @@ public class MagicCircleManager : MonoBehaviour
     IEnumerator CheckPlayingState()
     {
         while (_myAnim.isPlaying)
-            { yield return new WaitForEndOfFrame(); }
-        if (!objectHidden)
-            OnCircleShow.Invoke();
+        { yield return new WaitForEndOfFrame(); }
+       // if (!objectHidden)
+           // OnCircleShow.Invoke();
     }
+    IEnumerator CheckPalm()
+    {
+        bool invoked = false;
+        while (!objectHidden)
+        {
+            if (palmScript.IsActive && !invoked)
+            {
+                OnCircleActiveAndPalmFacingFloor.Invoke(); // green
+                invoked = true;
+                Debug.Log("Invoking");
+               
+            }
+            else if (!palmScript.IsActive && invoked)
+            {
+                OnPalmEndFacingFloor.Invoke(); // yellow
+                invoked = false;
+            }
+            yield return null;
+        }
+        
+       
+        //OnPalmEndFacingFloor.Invoke();
+
+        Debug.Log("Invoking OnPalmEndFacingFloor");
+
+
+    }
+
+    
 
     void Update()
     {
         pinching = pinchScript.IsPinching;
         startPinch = pinchScript.DidStartPinch;
         endPinch = pinchScript.DidEndPinch;
+        
 
+        if (startPinch) StartCoroutine(isGrabbingSmth());
+        if (endPinch) { StopCoroutine(isGrabbingSmth()); HideMagicCircle(); }
+
+        if (isGrabbing && !objectHidden) HideMagicCircle();
+        if (pinching && objectHidden && !isGrabbing) ShowMagicCircle();
+       
+
+    }
+    private void FixedUpdate()
+    {
         if (pinching)
         {
             Target.transform.position = pinchScript.Position;
         }
-
-        if (startPinch) StartCoroutine(isGrabbingSmth());
-        if (endPinch) { StopCoroutine(isGrabbingSmth()); HideMagicCircle(); }
-        if (isGrabbing && !objectHidden) HideMagicCircle();
-        if (pinching && objectHidden && !isGrabbing) ShowMagicCircle(); // smth wrong here
     }
 }

@@ -56,10 +56,12 @@ public class VRTeleporter : MonoBehaviour
 
     // Active Teleporter Arc Path
     public void ToggleDisplay(bool active)
-    {        
+    {
+        
         arcRenderer.enabled = active;
         positionMarker.SetActive(active);
         displayActive = active;
+
     }
 
    
