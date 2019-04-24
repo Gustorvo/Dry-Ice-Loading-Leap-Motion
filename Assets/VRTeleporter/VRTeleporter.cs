@@ -57,19 +57,26 @@ public class VRTeleporter : MonoBehaviour
     // Active Teleporter Arc Path
     public void ToggleDisplay(bool active)
     {
-        
-        arcRenderer.enabled = active;
-        positionMarker.SetActive(active);
         displayActive = active;
+        //arcRenderer.enabled = active; //use Coroutine instead, to avoid jettering (next line of code)
+        StartCoroutine(EnableLineRendererOnNextFrame(active));
+        positionMarker.SetActive(active);
+        
+
 
     }
 
-   
+
     private void Awake()
     {
         arcRenderer = GetComponent<LineRenderer>();
         arcRenderer.enabled = false;
         positionMarker.SetActive(false);
+    }
+
+    private void Start()
+    {
+        // arcRenderer.enabled = true; experimental
     }
 
     private void Update()
@@ -80,7 +87,7 @@ public class VRTeleporter : MonoBehaviour
         }
     }
 
-    
+
 
 
     private void UpdatePath()
@@ -115,7 +122,7 @@ public class VRTeleporter : MonoBehaviour
                 groundPos = hit.point;
                 lastNormal = hit.normal;
             }
-            
+
             pos = newPos; // update current vertex as last vertex
         }
 
@@ -128,7 +135,7 @@ public class VRTeleporter : MonoBehaviour
 
 
             positionMarker.transform.position = groundPos + lastNormal * 0.01f; //original implementation
-            positionMarker.transform.LookAt(groundPos );
+            positionMarker.transform.LookAt(groundPos);
         }
 
         // Update Line Renderer
@@ -145,6 +152,14 @@ public class VRTeleporter : MonoBehaviour
             objectToMove.transform.position = Vector3.MoveTowards(objectToMove.transform.position, end, speed * Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    private IEnumerator EnableLineRendererOnNextFrame(bool active)
+    {
+        if (active)
+            yield return new WaitForEndOfFrame(); // fixes jittering on enabling LineRenderer before moving its position;
+        arcRenderer.enabled = active;
+        
     }
 
 
