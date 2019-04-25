@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class VRTeleporter : MonoBehaviour
 {
+
+    private bool runNormal;
+
+    private Task AnimatedArcRoutine;
     public float speed;
     public Vector3 mvelocity = Vector3.one;
     public float smoothTime = 0.3F;
@@ -19,9 +24,9 @@ public class VRTeleporter : MonoBehaviour
     public float strength = 10f; // Increasing this value will increase overall arc length
 
 
-    int maxVertexcount = 50; // limitation of vertices for performance. 
-
-    private float vertexDelta = 0.08f; // Delta between each Vertex on arc. Decresing this value may cause performance problem.
+    int maxVertexcount = 35; // limitation of vertices for performance. 
+    [SerializeField]
+    private float vertexDelta = 0.08f; // Delta between each Vertex on arc. Decresing this value may cause performance problem. 0.08f is a def value
 
     private LineRenderer arcRenderer;
 
@@ -41,10 +46,10 @@ public class VRTeleporter : MonoBehaviour
     // Teleport target transform to ground position
     public void Teleport()
     {
-        if (groundDetected)
+        if (groundDetected && runNormal)
         {
             // bodyTransforn.position = groundPos + lastNormal * 0.01f;
-            StartCoroutine(MoveOverSpeed(bodyTransforn, (groundPos + lastNormal * 0.01f), 10));
+            StartCoroutine(TeleportOverSpeed(bodyTransforn, (groundPos + lastNormal * 0.01f), 10));
             ToggleDisplay(false);
 
         }
@@ -58,12 +63,15 @@ public class VRTeleporter : MonoBehaviour
     public void ToggleDisplay(bool active)
     {
         displayActive = active;
-        //arcRenderer.enabled = active; //use Coroutine instead, to avoid jettering (next line of code)
+
         StartCoroutine(EnableLineRendererOnNextFrame(active));
-        positionMarker.SetActive(active);
-        
-
-
+        if (active && AnimatedArcRoutine == null)
+        {
+            runNormal = false;
+            AnimatedArcRoutine = new Task(BeginAnimateArc());
+        }
+        if (!active)
+            positionMarker.SetActive(active);
     }
 
 
@@ -76,7 +84,7 @@ public class VRTeleporter : MonoBehaviour
 
     private void Start()
     {
-        // arcRenderer.enabled = true; experimental
+
     }
 
     private void Update()
@@ -85,6 +93,30 @@ public class VRTeleporter : MonoBehaviour
         {
             UpdatePath();
         }
+
+    }
+
+    IEnumerator BeginAnimateArc()
+    {
+        //yield return new WaitForEndOfFrame();
+        
+        arcRenderer.positionCount = 0;
+        arcRenderer.enabled = true;
+        while (arcRenderer.positionCount != vertexList.ToArray().Length)
+        {
+            for (int i = 0; i < vertexList.ToArray().Length; i++)
+            {
+                Vector3[] tempPos = vertexList.ToArray();
+                Array.Resize(ref tempPos, i + 1); // increments arch path every frame
+                arcRenderer.positionCount = i + 1;
+                arcRenderer.SetPositions(tempPos);
+                yield return new WaitForEndOfFrame();
+            }
+
+        }
+        
+        runNormal = true;        // start render the arch nornally, every frame.
+        AnimatedArcRoutine = null;
     }
 
 
@@ -116,7 +148,7 @@ public class VRTeleporter : MonoBehaviour
             vertexList.Add(newPos); // add new calculated vertex
 
             // linecast between last vertex and current vertex
-            if (Physics.Linecast(pos, newPos, out hit, includeLayers))//~excludeLayers))
+            if (Physics.Linecast(pos, newPos, out hit, ~excludeLayers))// includeLayers))
             {
                 groundDetected = true;
                 groundPos = hit.point;
@@ -127,7 +159,7 @@ public class VRTeleporter : MonoBehaviour
         }
 
 
-        positionMarker.SetActive(groundDetected);
+        // positionMarker.SetActive(groundDetected);
 
         if (groundDetected)
         {
@@ -138,13 +170,21 @@ public class VRTeleporter : MonoBehaviour
             positionMarker.transform.LookAt(groundPos);
         }
 
-        // Update Line Renderer
+        // Update Line Renderer every frame (full path)
 
-        arcRenderer.positionCount = vertexList.Count;
-        arcRenderer.SetPositions(vertexList.ToArray());
+        if (runNormal)
+        {
+            positionMarker.SetActive(groundDetected);
+            arcRenderer.enabled = groundDetected;
+            arcRenderer.positionCount = vertexList.Count;
+            arcRenderer.SetPositions(vertexList.ToArray());
+        }
+
     }
 
-    public IEnumerator MoveOverSpeed(Transform objectToMove, Vector3 end, float speed)
+
+
+    public IEnumerator TeleportOverSpeed(Transform objectToMove, Vector3 end, float speed) //teleporter over time
     {
         // speed should be 1 unit per second
         while (objectToMove.transform.position != end)
@@ -159,7 +199,7 @@ public class VRTeleporter : MonoBehaviour
         if (active)
             yield return new WaitForEndOfFrame(); // fixes jittering on enabling LineRenderer before moving its position;
         arcRenderer.enabled = active;
-        
+
     }
 
 

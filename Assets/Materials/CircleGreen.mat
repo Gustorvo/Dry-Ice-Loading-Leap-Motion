@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: SpriteLuminanceCirkle
+  m_Name: CircleGreen
   m_Shader: {fileID: 4800000, guid: af2b0d75e795f17428884576f22ab735, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA _EMISSION
   m_LightmapFlags: 1

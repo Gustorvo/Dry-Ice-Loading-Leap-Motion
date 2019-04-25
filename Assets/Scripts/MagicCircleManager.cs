@@ -50,6 +50,8 @@ public class MagicCircleManager : MonoBehaviour
 
     Hand ReturnHand()
     {
+        
+
         Frame frame = controller.Frame(); // controller is a Controller object
         if (frame.Hands.Count > 0)
         {
@@ -138,7 +140,7 @@ public class MagicCircleManager : MonoBehaviour
             {
                 OnCircleActiveAndPalmFacingFloor.Invoke(); // green
                 invoked = true;
-                Debug.Log("Invoking");
+               //Debug.Log("Invoking");
                
             }
             else if (!palmScript.IsActive && invoked)
@@ -152,7 +154,7 @@ public class MagicCircleManager : MonoBehaviour
        
         //OnPalmEndFacingFloor.Invoke();
 
-        Debug.Log("Invoking OnPalmEndFacingFloor");
+        //Debug.Log("Invoking OnPalmEndFacingFloor");
 
 
     }
