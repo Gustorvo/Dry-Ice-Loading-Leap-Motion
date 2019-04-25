@@ -102,13 +102,15 @@ public class VRTeleporter : MonoBehaviour
         
         arcRenderer.positionCount = 0;
         arcRenderer.enabled = true;
-        while (arcRenderer.positionCount != vertexList.ToArray().Length)
+        while (arcRenderer.positionCount != vertexList.ToArray().Length -1)
         {
-            for (int i = 0; i < vertexList.ToArray().Length; i++)
+            for (int i = 1; i < vertexList.ToArray().Length; i++)
             {
                 Vector3[] tempPos = vertexList.ToArray();
-                Array.Resize(ref tempPos, i + 1); // increments arch path every frame
-                arcRenderer.positionCount = i + 1;
+                
+                Array.Resize(ref tempPos, i ); // increments arch path every frame
+                
+                arcRenderer.positionCount = i;
                 arcRenderer.SetPositions(tempPos);
                 yield return new WaitForEndOfFrame();
             }
@@ -176,8 +178,10 @@ public class VRTeleporter : MonoBehaviour
         {
             positionMarker.SetActive(groundDetected);
             arcRenderer.enabled = groundDetected;
-            arcRenderer.positionCount = vertexList.Count;
-            arcRenderer.SetPositions(vertexList.ToArray());
+            arcRenderer.positionCount = vertexList.Count -2; // -2 to skipp rendering the end of the arch
+            Vector3[] tempPos = vertexList.ToArray();
+            Array.Resize(ref tempPos, vertexList.Count - 2); // -2 to skipp rendering the end of the arch
+            arcRenderer.SetPositions(tempPos);
         }
 
     }
