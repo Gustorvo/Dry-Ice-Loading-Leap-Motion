@@ -55,9 +55,10 @@ public class MagicCircleManager : MonoBehaviour
 
     Hand ReturnHand()
     {
-        Frame frame = controller.Frame();  // controller is a Controller object
+        Frame frame = controller.Frame();
         if (frame.Hands.Count > 0)
         {
+           
             List<Hand> hands = frame.Hands;
             Hand firstHand = hands[0];
             return firstHand;
