@@ -178,9 +178,9 @@ public class VRTeleporter : MonoBehaviour
         {
             positionMarker.SetActive(groundDetected);
             arcRenderer.enabled = groundDetected;
-            arcRenderer.positionCount = vertexList.Count -2; // -2 to skipp rendering the end of the arch
+            arcRenderer.positionCount = vertexList.Count -1; // -1 to skipp rendering the end of the arch
             Vector3[] tempPos = vertexList.ToArray();
-            Array.Resize(ref tempPos, vertexList.Count - 2); // -2 to skipp rendering the end of the arch
+            Array.Resize(ref tempPos, vertexList.Count -1); // -1 to skipp rendering the end of the arch
             arcRenderer.SetPositions(tempPos);
         }
 
