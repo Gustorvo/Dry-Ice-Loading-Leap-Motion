@@ -33,7 +33,7 @@ public class ToggleHandsModel : MonoBehaviour {
         else current++;
         HandPool.EnableGroup(HandGroups[current]);
 
-        _detectorManagerScript.ToggleDetectors(); // toggle detectors for new hands
+        _detectorManagerScript.ToggleDetectors(); // toggle detectors for new hands              
 
 
     }

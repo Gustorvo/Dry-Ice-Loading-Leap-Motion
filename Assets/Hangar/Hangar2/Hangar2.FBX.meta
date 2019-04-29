@@ -1,0 +1,162 @@
+fileFormatVersion: 2
+guid: cc453f2151a2ebf4a8d71d4944cb846f
+timeCreated: 1507797756
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Cabstruction
+    100002: Glow
+    100004: //RootNode
+    100006: Light
+    100008: Stuf
+    100010: Wall
+    100012: Line002
+    100014: Robot
+    100016: EP1
+    100018: EP2
+    100020: Cabstruction_MeshPart0
+    100022: Cabstruction_MeshPart1
+    100024: Fire_Extinguisher
+    100026: Tool
+    100028: Robot2
+    100030: Canstruction2
+    100032: Cabel
+    100034: Tube
+    400000: Cabstruction
+    400002: Glow
+    400004: //RootNode
+    400006: Light
+    400008: Stuf
+    400010: Wall
+    400012: Line002
+    400014: Robot
+    400016: EP1
+    400018: EP2
+    400020: Cabstruction_MeshPart0
+    400022: Cabstruction_MeshPart1
+    400024: Fire_Extinguisher
+    400026: Tool
+    400028: Robot2
+    400030: Canstruction2
+    400032: Cabel
+    400034: Tube
+    2300000: Cabstruction
+    2300002: Glow
+    2300004: Light
+    2300006: Stuf
+    2300008: Wall
+    2300010: Robot
+    2300012: EP1
+    2300014: EP2
+    2300016: Cabstruction_MeshPart0
+    2300018: Cabstruction_MeshPart1
+    2300020: Fire_Extinguisher
+    2300022: Tool
+    2300024: Robot2
+    2300026: Canstruction2
+    2300028: Cabel
+    2300030: Tube
+    3300000: Cabstruction
+    3300002: Glow
+    3300004: Light
+    3300006: Stuf
+    3300008: Wall
+    3300010: Robot
+    3300012: EP1
+    3300014: EP2
+    3300016: Cabstruction_MeshPart0
+    3300018: Cabstruction_MeshPart1
+    3300020: Fire_Extinguisher
+    3300022: Tool
+    3300024: Robot2
+    3300026: Canstruction2
+    3300028: Cabel
+    3300030: Tube
+    4300000: Wall
+    4300002: Cabstruction
+    4300004: Glow
+    4300006: Stuf
+    4300008: Light
+    4300010: Robot
+    4300012: EP1
+    4300014: EP2
+    4300016: Cabstruction_MeshPart0
+    4300018: Cabstruction_MeshPart1
+    4300020: Fire_Extinguisher
+    4300022: Tool
+    4300024: Robot2
+    4300026: Canstruction2
+    4300028: Tube
+    4300030: Cabel
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

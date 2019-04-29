@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Scenes/Finger detector.unity
     guid: 014381ffb1b74b14d8504f405c8903eb
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/teleport.unity
     guid: 00a9d97c1c313624e88aedcbcab428d9
+  - enabled: 1
+    path: Assets/_Scenes/Hangar.unity
+    guid: fd66f9e845453ee43a63dd253195939f
   m_configObjects: {}
