@@ -18,6 +18,7 @@ public class MagicCircleManager : MonoBehaviour
     public UnityEvent OnCircleActiveAndPalmFacingFloor;
     public UnityEvent OnPalmAcriveButGrabBegin;
     public UnityEvent OnPalmEndFacingFloor;
+    public UnityEvent TerminateAll;
 
     public AnimationClip _animation;
     private Animation _myAnim;
@@ -73,6 +74,7 @@ public class MagicCircleManager : MonoBehaviour
 
     IEnumerator isGrabbingSmth()
     {
+        Debug.Log("Started to listen to Grab mechanic");
         isGrabbing = false;
         while (pinching)
         {
@@ -128,14 +130,10 @@ public class MagicCircleManager : MonoBehaviour
             else
             {
                 OnCircleHideButPalmEndFacingFloor.Invoke();
-
-
-
                 Hint.SetActive(false);
             }
 
-
-
+            TerminateAll.Invoke(); // just to make sure that nothing is missed.
 
             _myAnim.AddClip(_animation, "Hide");
             _myAnim["Hide"].speed = speed * 1;
@@ -173,13 +171,10 @@ public class MagicCircleManager : MonoBehaviour
                 invoked = false;
             }
             yield return null;
-        }
-
-
-        //OnPalmEndFacingFloor.Invoke();
-
-        //Debug.Log("Invoking OnPalmEndFacingFloor");
-
+        }        
+    }
+    private void Terminate()
+    {
 
     }
 
@@ -194,9 +189,11 @@ public class MagicCircleManager : MonoBehaviour
 
         if (startPinch) StartCoroutine(isGrabbingSmth());
         if (endPinch) { StopCoroutine(isGrabbingSmth()); HideMagicCircle(); }
+       
 
         if (isGrabbing && !objectHidden) HideMagicCircle();
         if (pinching && objectHidden && !isGrabbing) ShowMagicCircle();
+       
 
 
     }
