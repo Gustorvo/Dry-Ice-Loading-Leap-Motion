@@ -42,16 +42,22 @@ public class MagicCircleManager : MonoBehaviour
 
     private void Start()
     {
-        hintHandler = new Task(HintTimer());
-        hintHandler.Pause();
-    }
-    private void Awake()
-    {
         if (Target == null)
             Target = gameObject;
 
         _myAnim = GetComponent<Animation>();
         HideMagicCircle();
+
+        hintHandler = new Task(HintTimer());
+        hintHandler.Pause();
+    }
+    private void Awake()
+    {
+        //if (Target == null)
+        //    Target = gameObject;
+
+        //_myAnim = GetComponent<Animation>();
+        //HideMagicCircle();
     }
 
     Hand ReturnHand()
@@ -74,7 +80,7 @@ public class MagicCircleManager : MonoBehaviour
 
     IEnumerator isGrabbingSmth()
     {
-        Debug.Log("Started to listen to Grab mechanic");
+        //Debug.Log("Started to listen to Grab mechanic");
         isGrabbing = false;
         while (pinching)
         {

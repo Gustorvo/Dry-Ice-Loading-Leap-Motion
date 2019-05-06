@@ -41,7 +41,8 @@ public class ToggleColor : MonoBehaviour
     {
         if (activeColor)
         {
-            ChangeMaterilaTo(_mat, _originalCol);
+           
+           ChangeMaterilaTo(_mat, _originalCol);
             //GetComponent<Renderer>().material = _mat;
             //_mat.color = _originalCol;
 

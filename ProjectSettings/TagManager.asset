@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - doors
+  - floor
+  - hand
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - DryIce
   - floor
   - int button
-  - 
+  - hand
   - 
   - 
   - 

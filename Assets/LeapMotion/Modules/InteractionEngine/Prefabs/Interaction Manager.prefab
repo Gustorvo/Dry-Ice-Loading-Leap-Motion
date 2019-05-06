@@ -96,7 +96,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4822923098130148}
   - component: {fileID: 114892109605653334}
-  - component: {fileID: 114685367921167028}
   m_Layer: 0
   m_Name: Interaction Manager
   m_TagString: Untagged
@@ -1426,6 +1425,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1460,6 +1460,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1494,6 +1495,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1528,6 +1530,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1562,6 +1565,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1596,6 +1600,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1630,6 +1635,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1664,6 +1670,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1759,6 +1766,8 @@ MonoBehaviour:
   _trackingProviderType: Leap.Unity.Interaction.DefaultXRNodeTrackingProvider
   _deviceJoystickTokens: oculus touch left
   _chirality: 0
+  _pollConnection: 1
+  pollConnectionInterval: 2
   _hoverPoint: {fileID: 4124005749955138}
   primaryHoverPoints:
   - {fileID: 4167142033702652}
@@ -1767,6 +1776,7 @@ MonoBehaviour:
   maxGraspDistance: 0.06
   graspButtonAxis: LeftVRTriggerAxis
   graspTimingSlop: 0.1
+  _enableObjectsOnlyWhenTracked: []
 --- !u!114 &114349848297365876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1785,6 +1795,8 @@ MonoBehaviour:
   _trackingProviderType: Leap.Unity.Interaction.DefaultXRNodeTrackingProvider
   _deviceJoystickTokens: oculus touch right
   _chirality: 1
+  _pollConnection: 1
+  pollConnectionInterval: 2
   _hoverPoint: {fileID: 4048898786076064}
   primaryHoverPoints:
   - {fileID: 4312512404117588}
@@ -1793,6 +1805,7 @@ MonoBehaviour:
   maxGraspDistance: 0.06
   graspButtonAxis: RightVRTriggerAxis
   graspTimingSlop: 0.1
+  _enableObjectsOnlyWhenTracked: []
 --- !u!114 &114465421072682944
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1852,84 +1865,6 @@ MonoBehaviour:
     The OpenVR SDK provides a much better mesh for a Vive controller that can easily
     be imported to Unity and dragged into this controller's hierarchy.
   _isEditing: 0
---- !u!114 &114685367921167028
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1148719034140820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d7eaf54dc14a5e4a89bc7fac55ca11a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionManager: {fileID: 114892109605653334}
-  leftHandControllers: []
-  rightHandControllers: []
-  OnLeftHandActive:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnLeftHandInactive:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnRightHandActive:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnRightHandInactive:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114715876033041564
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1978,6 +1913,8 @@ MonoBehaviour:
   _trackingProviderType: Leap.Unity.Interaction.DefaultXRNodeTrackingProvider
   _deviceJoystickTokens: openvr controller left
   _chirality: 0
+  _pollConnection: 1
+  pollConnectionInterval: 2
   _hoverPoint: {fileID: 4929993856360548}
   primaryHoverPoints:
   - {fileID: 4664586879783328}
@@ -1986,6 +1923,7 @@ MonoBehaviour:
   maxGraspDistance: 0.06
   graspButtonAxis: LeftVRTriggerAxis
   graspTimingSlop: 0.1
+  _enableObjectsOnlyWhenTracked: []
 --- !u!114 &114869988297822588
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2022,6 +1960,8 @@ MonoBehaviour:
   _trackingProviderType: Leap.Unity.Interaction.DefaultXRNodeTrackingProvider
   _deviceJoystickTokens: openvr controller right
   _chirality: 1
+  _pollConnection: 1
+  pollConnectionInterval: 2
   _hoverPoint: {fileID: 4646715249737296}
   primaryHoverPoints:
   - {fileID: 4729831271142392}
@@ -2030,6 +1970,7 @@ MonoBehaviour:
   maxGraspDistance: 0.06
   graspButtonAxis: RightVRTriggerAxis
   graspTimingSlop: 0.1
+  _enableObjectsOnlyWhenTracked: []
 --- !u!114 &114892109605653334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2055,11 +1996,11 @@ MonoBehaviour:
   _templateLayer:
     layerIndex: 0
   _interactionLayer:
-    layerIndex: 8
+    layerIndex: 14
   _interactionNoContactLayer:
-    layerIndex: 9
+    layerIndex: 15
   _contactBoneLayer:
-    layerIndex: 10
+    layerIndex: 16
   _drawControllerRuntimeGizmos: 0
 --- !u!114 &114953444178982414
 MonoBehaviour:
