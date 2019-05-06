@@ -5,7 +5,7 @@ using System;
 
 public class VRTeleporter : MonoBehaviour
 {
-    public Vector3 Offset;
+
     private bool runNormal;
 
     private Task AnimatedArcRoutine;
@@ -191,9 +191,9 @@ public class VRTeleporter : MonoBehaviour
     public IEnumerator TeleportOverSpeed(Transform objectToMove, Vector3 end, float speed) //teleporter over time
     {
         // speed should be 1 unit per second
-        while (objectToMove.transform.position != end + Offset)
+        while (objectToMove.transform.position != end)
         {
-            objectToMove.transform.position = Vector3.MoveTowards(objectToMove.transform.position, end + Offset, speed * Time.deltaTime);
+            objectToMove.transform.position = Vector3.MoveTowards(objectToMove.transform.position, end, speed * Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
     }
