@@ -9,24 +9,24 @@ public class ToggleColor : MonoBehaviour
     public Material toggRedleMaterial;
     public Color yellow;
     private Color _originalCol;
+   
 
-
-
+   
 
 
     // Use this for initialization
     void Start()
     {
-
-
+       
+        
     }
 
     private void Awake()
     {
-        //_mat = GetComponent<Renderer>().material;
-        //_originalCol = _mat.color;
+        _mat = GetComponent<Renderer>().material;
+        _originalCol = _mat.color;
 
-        RetrieveOriginalColor();
+
 
 
 
@@ -41,60 +41,21 @@ public class ToggleColor : MonoBehaviour
     {
         if (activeColor)
         {
-            ChangeMaterilaTo(_mat, _originalCol);
-            //GetComponent<Renderer>().material = _mat;
-            //_mat.color = _originalCol;
-
+            GetComponent<Renderer>().material = _mat;
+            _mat.color = _originalCol;
+            
         }
         else
         {
-            ChangeMaterilaTo(_mat, yellow);
-            //GetComponent<Renderer>().material = _mat;
-            //_mat.color = yellow;
-
+            GetComponent<Renderer>().material = _mat;
+            _mat.color = yellow;
+            
         }
     }
 
     public void ToggleRedColor()
     {
         GetComponent<Renderer>().material = toggRedleMaterial;
-
-    }
-
-    private void ChangeMaterilaTo(Material _mat, Color _color)
-    {
-        if (GetComponent<Renderer>() == null) 
-        {
-            Renderer[] _ren = GetComponentsInChildren<Renderer>();
-            foreach (var item in _ren)
-            {
-                item.material = _mat;
-                _mat.color = _color;
-            }
-        }
-        else
-        {
-            GetComponent<Renderer>().material = _mat;
-            _mat.color = _color;
-        }
-    }
-
-    private void RetrieveOriginalColor()
-    {
-        if (GetComponent<Renderer>() == null)
-        {
-            Renderer[] _ren = GetComponentsInChildren<Renderer>();
-            foreach (var item in _ren)
-            {
-                _mat = item.material;
-                _originalCol = _mat.color;
-                
-            }
-        }
-        else
-        {
-            _mat = GetComponent<Renderer>().material;
-            _originalCol = _mat.color;
-        }
+      
     }
 }
