@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class DoorsOpenClose : MonoBehaviour, IDoor
 {
@@ -104,6 +105,9 @@ public class DoorsOpenClose : MonoBehaviour, IDoor
         ON = !ON;
         CheckRestriction();
 
+        if (OnDoorOpen != null) // check for subscribers
+            OnDoorOpen(gameObject, ON); // call the event OnDoorOpen
+
         Hide();
         if (PairDoor != null && !_openCommandComesOutside)
         {
@@ -204,5 +208,7 @@ public class DoorsOpenClose : MonoBehaviour, IDoor
         if (OlderItemRestrictsOpen != null)
             othersCols = OlderItemRestrictsOpen.GetComponentsInChildren<Collider>();
     }
+
+    public Action<GameObject, bool> OnDoorOpen = delegate { };
 
 }

@@ -7,6 +7,10 @@ TagManager:
   - doors
   - floor
   - hand
+  - dryicepallet
+  - occupied
+  - empty
+  - IcePlaceholder
   layers:
   - Default
   - TransparentFX

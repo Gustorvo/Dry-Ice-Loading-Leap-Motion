@@ -9,7 +9,7 @@ public class VRTeleporter : MonoBehaviour
     private bool runNormal;
 
     private Task AnimatedArcRoutine;
-    public float speed;
+    public float speed = 10;
     public Vector3 mvelocity = Vector3.one;
     public float smoothTime = 0.3F;
     public GameObject positionMarker; // marker for display ground position
@@ -49,7 +49,7 @@ public class VRTeleporter : MonoBehaviour
         if (groundDetected && runNormal)
         {
             // bodyTransforn.position = groundPos + lastNormal * 0.01f;
-            StartCoroutine(TeleportOverSpeed(bodyTransforn, (groundPos + lastNormal * 0.01f), 10));
+            StartCoroutine(TeleportOverSpeed(bodyTransforn, (groundPos + lastNormal * 0.01f), speed));
             ToggleDisplay(false);
 
         }
@@ -112,7 +112,7 @@ public class VRTeleporter : MonoBehaviour
                 
                 arcRenderer.positionCount = i;
                 arcRenderer.SetPositions(tempPos);
-                yield return new WaitForEndOfFrame();
+                yield return new WaitForSeconds(0.015f); //WaitForEndOfFrame();
             }
 
         }

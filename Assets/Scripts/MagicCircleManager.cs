@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Leap.Unity;
 using Leap;
+using Leap.Unity.Interaction;
 using UnityEngine.Events;
 
 
 public class MagicCircleManager : MonoBehaviour
 {
     private Task hintHandler;
-    public GameObject Hint;
+   
 
 
     public UnityEvent OnCircleShow;
@@ -25,6 +26,7 @@ public class MagicCircleManager : MonoBehaviour
     public float speed = 1;
     public PinchDetector pinchScript;
     public PalmDirectionDetector palmScript;
+    public InteractionController intController;
 
 
     public GameObject Target;
@@ -84,17 +86,23 @@ public class MagicCircleManager : MonoBehaviour
         isGrabbing = false;
         while (pinching)
         {
+            if (intController.isPrimaryHovering)
+            {
+                //Debug.Log("Hovering");
+                isGrabbing = true;
+                break;
+            }
             if (ReturnHand() == null) // skip empty frames
             {
                 break;
             }
             float probability = ReturnHand().GrabStrength;
-            if (probability > .99f)
+            if (probability > .9f)
                 isGrabbing = true;
             else isGrabbing = false;
             yield return null;
         }
-        isGrabbing = false;
+        //isGrabbing = false;
 
     }
 
@@ -136,7 +144,7 @@ public class MagicCircleManager : MonoBehaviour
             else
             {
                 OnCircleHideButPalmEndFacingFloor.Invoke();
-                Hint.SetActive(false);
+               
             }
 
             TerminateAll.Invoke(); // just to make sure that nothing is missed.
@@ -165,7 +173,7 @@ public class MagicCircleManager : MonoBehaviour
             {
                 OnCircleActiveAndPalmFacingFloor.Invoke(); // green
                 hintHandler.Stop();
-                Hint.SetActive(false);
+               
                 invoked = true;
                 //Debug.Log("Invoking");
 
@@ -199,8 +207,8 @@ public class MagicCircleManager : MonoBehaviour
 
         if (isGrabbing && !objectHidden) HideMagicCircle();
         if (pinching && objectHidden && !isGrabbing) ShowMagicCircle();
-       
 
+        
 
     }
     private void FixedUpdate()
@@ -222,6 +230,6 @@ public class MagicCircleManager : MonoBehaviour
 
             yield return null;
         }
-        Hint.SetActive(true);
+       
     }
 }

@@ -7,26 +7,35 @@ using Leap.Unity.Interaction;
 [RequireComponent(typeof(InteractionBehaviour))]
 
 
-public class Highlighter : MonoBehaviour {
+public class Highlighter : MonoBehaviour
+{
 
     private Material _material;
     public InteractionBehaviour _intObj;
     public bool useHover = true;
     public bool usePrimaryHover = false;
+    public bool useOutliner;
+    public bool useGrasp;
+    public bool useContact;
 
 
     private Color defaultColor;
     public Color suspendedColor = Color.red;
     public Color hoverColor = Color.Lerp(Color.black, Color.white, 0.7F);
+    public Color graspColor = Color.Lerp(Color.green, Color.green, 0.7F);
+    public Color graspOutlineColor = Color.Lerp(Color.green, Color.yellow, 0.7F);
+    public Color hoverOutlineColor = Color.Lerp(Color.white, Color.yellow, 0.7F);
     public Color primaryHoverColor = Color.Lerp(Color.black, Color.white, 0.8F);
     public Color pressedColor = Color.white;
     public Renderer myRenderer;
+    private QuickOutline _outliner;
 
 
-    
+
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         _intObj = GetComponent<InteractionBehaviour>();
 
         myRenderer = GetComponent<Renderer>();
@@ -40,10 +49,64 @@ public class Highlighter : MonoBehaviour {
         }
 
         defaultColor = _material.color;
+
+        if (useGrasp)
+        {
+            useOutliner = true;
+            _intObj.OnGraspBegin += ControllOutline;
+            _intObj.OnGraspEnd += ControllOutline;
+        }
+        if (useContact)
+        {
+            useOutliner = true;
+            _intObj.OnContactBegin += ContactBeginOutline;
+            _intObj.OnContactEnd += ControllOutline;
+        }
+
+        if (useOutliner)
+        {
+            _outliner = GetComponent<QuickOutline>();
+            if (_outliner == null)
+            {
+                _outliner = gameObject.AddComponent<QuickOutline>();
+            }
+            
+            _outliner.OutlineMode = QuickOutline.Mode.OutlineAll;
+            
+            _outliner.OutlineWidth = 0f;
+
+            _intObj.OnHoverBegin += ControllOutline;
+            _intObj.OnHoverEnd += ControllOutline;            
+        }
+
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    void ContactBeginOutline()
+    {
+        _outliner.OutlineWidth = 6;
+        _outliner.OutlineColor = graspOutlineColor;
+    }
+
+    
+    void ControllOutline()
+    {
+        if (_intObj.isGrasped)
+        {
+            _outliner.OutlineWidth = 6;
+            _outliner.OutlineColor = graspOutlineColor;
+        }
+        
+        else if (_intObj.isHovered || _intObj.isPrimaryHovered)
+        {
+            _outliner.OutlineWidth = 2;
+            _outliner.OutlineColor = hoverOutlineColor;
+        }
+        else _outliner.OutlineWidth = 0;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (_material != null)
         {
 
@@ -57,6 +120,10 @@ public class Highlighter : MonoBehaviour {
             {
                 targetColor = primaryHoverColor;
             }
+            else if (_intObj.isGrasped)
+            {
+                targetColor = graspColor;
+            }
             else
             {
                 // Of course, any number of objects can be hovered by any number of InteractionHands.
@@ -68,6 +135,7 @@ public class Highlighter : MonoBehaviour {
                     float glow = _intObj.closestHoveringControllerDistance.Map(0F, 0.2F, 1F, 0.0F);
                     targetColor = Color.Lerp(defaultColor, hoverColor, glow);
                 }
+
             }
 
             if (_intObj.isSuspended)
@@ -85,6 +153,7 @@ public class Highlighter : MonoBehaviour {
             {
                 targetColor = pressedColor;
             }
+
 
             // Lerp actual material color to the target color.
             _material.color = Color.Lerp(_material.color, targetColor, 30F * Time.deltaTime);

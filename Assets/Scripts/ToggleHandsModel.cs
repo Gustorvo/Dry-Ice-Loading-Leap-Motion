@@ -4,8 +4,7 @@ using UnityEngine;
 using Leap.Unity;
 
 using Leap.Unity.Interaction;
-
-using UnityEngine.Events;
+using System;
 
 public class ToggleHandsModel : MonoBehaviour {
 
@@ -17,13 +16,13 @@ public class ToggleHandsModel : MonoBehaviour {
     public DetectorManager _detectorManagerScript;
     public Material[] _material;
     Renderer[] _ren;
-    private UnityAction someListener;
+   
 
 
 
 
     void Start () {
-        //HandPool = GetComponent<HandModelManager>();
+        
          _ren = GetComponentsInChildren<Renderer>();
         intGloves = gameObject.GetComponent<InteractionBehaviour>();
          intGloves.OnHoverBegin += ToggleHands;
@@ -39,18 +38,23 @@ public class ToggleHandsModel : MonoBehaviour {
 
     }
 
-    void SomeDebug()
-    {
-        Debug.Log("Some test");
-    }
+    public Action<bool> OnGlovesOn = delegate { };
+    
 
     public void ToggleHands()
     {
-        Debug.Log("shifting hands");
+        //Debug.Log("shifting hands");
         HandPool.DisableGroup(HandGroups[current]);
         if (current == HandGroups.Length - 1) // reached the last element
+        {
             current = 0; // start with the first element
-        else current++;
+            OnGlovesOn(false);
+        }
+        else
+        {
+            current++;
+            OnGlovesOn(true);
+        }
         HandPool.EnableGroup(HandGroups[current]);
 
         

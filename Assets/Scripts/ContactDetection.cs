@@ -18,6 +18,10 @@ public class ContactDetection : MonoBehaviour
 
     public UnityEvent OnHoverBegin;
     public UnityEvent OnHoverEnd;
+
+    public UnityEvent OnContactBegin;
+    public UnityEvent OnContactEnd;
+
     public UnityEvent OnContactCenterBegin;
     public UnityEvent OnContactCenterEnd;
 
@@ -28,7 +32,7 @@ public class ContactDetection : MonoBehaviour
 
     bool contactPending;
 
-    Collider _collider;
+   public Collider _collider;
     public List<Collider> _cols;
 
     IDoor parentIDoor;
@@ -45,6 +49,8 @@ public class ContactDetection : MonoBehaviour
         _intObj = GetComponent<InteractionBehaviour>();
         _intObj.OnHoverBegin += ActivateHover;
         _intObj.OnHoverEnd += DeactivateHover;
+        _intObj.OnContactBegin += OnContactBegin.Invoke;
+        _intObj.OnContactEnd += OnContactEnd.Invoke;
         _collider = GetComponent<Collider>();
         
 
@@ -54,8 +60,7 @@ public class ContactDetection : MonoBehaviour
             Debug.Break();
 
         }
-
-    }
+    }   
 
     
 
@@ -77,10 +82,7 @@ public class ContactDetection : MonoBehaviour
         {
             _cols = _intObj.primaryHoverColliders;
             distanceToCenter = Vector3.Distance(_collider.bounds.center, _intObj.primaryHoveringControllerPoint);
-            //if (MiddleFinger)
-
-            //distanceToCenter = _intObj.closestHoveringHand.
-            //Debug.Log(distanceToCenter);
+            
             if (distanceToCenter < activationDistance && !contactPending)
             {
                 StartCoroutine(CheckContactDistance());
