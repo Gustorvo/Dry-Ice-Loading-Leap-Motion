@@ -9,10 +9,11 @@ using UnityEngine.Events;
 
 public class MagicCircleManager : MonoBehaviour
 {
-    private Task hintHandler;
-   
+    
+    
+    private bool intersectsWithIntObj;
 
-
+    public LayerMask ignoreLayers;
     public UnityEvent OnCircleShow;
     public UnityEvent OnCircleHide;
     public UnityEvent OnCircleHideButPalmEndFacingFloor;
@@ -25,7 +26,7 @@ public class MagicCircleManager : MonoBehaviour
     private Animation _myAnim;
     public float speed = 1;
     public PinchDetector pinchScript;
-    public PalmDirectionDetector palmScript;
+    public Detector palmScript;
     public InteractionController intController;
 
 
@@ -50,16 +51,11 @@ public class MagicCircleManager : MonoBehaviour
         _myAnim = GetComponent<Animation>();
         HideMagicCircle();
 
-        hintHandler = new Task(HintTimer());
-        hintHandler.Pause();
+        
     }
     private void Awake()
     {
-        //if (Target == null)
-        //    Target = gameObject;
-
-        //_myAnim = GetComponent<Animation>();
-        //HideMagicCircle();
+        
     }
 
     Hand ReturnHand()
@@ -82,24 +78,23 @@ public class MagicCircleManager : MonoBehaviour
 
     IEnumerator isGrabbingSmth()
     {
-        //Debug.Log("Started to listen to Grab mechanic");
-        isGrabbing = false;
+        
+        //isGrabbing = false;
         while (pinching)
         {
-            if (intController.isPrimaryHovering)
-            {
-                //Debug.Log("Hovering");
+            if (intController.isPrimaryHovering) // can be ommitted since IntersectsWithIntObj() does that job already
+            {                
                 isGrabbing = true;
                 break;
             }
-            if (ReturnHand() == null) // skip empty frames
+            if (ReturnHand() != null) // skip empty frames
             {
-                break;
-            }
-            float probability = ReturnHand().GrabStrength;
-            if (probability > .9f)
-                isGrabbing = true;
-            else isGrabbing = false;
+                float probability = ReturnHand().GrabStrength;
+                if (probability > .9f)
+                    isGrabbing = true;
+                else isGrabbing = false;
+                
+            }            
             yield return null;
         }
         //isGrabbing = false;
@@ -118,9 +113,9 @@ public class MagicCircleManager : MonoBehaviour
         if (!isGrabbing)
         {
             OnCircleShow.Invoke();
-            hintHandler = new Task(HintTimer()); // start the hint timer
+            
             objectHidden = false;
-            StartCoroutine(CheckPlayingState());
+            
             StartCoroutine(CheckPalm());
 
 
@@ -137,14 +132,14 @@ public class MagicCircleManager : MonoBehaviour
         if (!objectHidden)
         {
             objectHidden = true;
-            StopCoroutine(CheckPlayingState());
+           
             StopCoroutine(CheckPalm());
-            if (palmScript.IsActive && !isGrabbing) OnCircleHide.Invoke(); // teleprot
+            if (palmScript.IsActive && !isGrabbing && !IntersectsWithIntObj()) OnCircleHide.Invoke(); // teleprot
             else if (isGrabbing) OnPalmAcriveButGrabBegin.Invoke(); // red color
             else
             {
                 OnCircleHideButPalmEndFacingFloor.Invoke();
-               
+
             }
 
             TerminateAll.Invoke(); // just to make sure that nothing is missed.
@@ -154,16 +149,11 @@ public class MagicCircleManager : MonoBehaviour
             _myAnim["Hide"].time = 0; // _myAnim["Hide"].length;
             _myAnim.Play("Hide");
         }
+        
 
     }
 
-    IEnumerator CheckPlayingState()
-    {
-        while (_myAnim.isPlaying)
-        { yield return new WaitForEndOfFrame(); }
-        // if (!objectHidden)
-        // OnCircleShow.Invoke();
-    }
+   
     IEnumerator CheckPalm()
     {
         bool invoked = false;
@@ -172,8 +162,8 @@ public class MagicCircleManager : MonoBehaviour
             if (palmScript.IsActive && !invoked)
             {
                 OnCircleActiveAndPalmFacingFloor.Invoke(); // green
-                hintHandler.Stop();
-               
+                
+
                 invoked = true;
                 //Debug.Log("Invoking");
 
@@ -181,11 +171,11 @@ public class MagicCircleManager : MonoBehaviour
             else if (!palmScript.IsActive && invoked)
             {
                 OnPalmEndFacingFloor.Invoke(); // yellow
-                hintHandler.Start();
+               
                 invoked = false;
             }
             yield return null;
-        }        
+        }
     }
     private void Terminate()
     {
@@ -196,21 +186,40 @@ public class MagicCircleManager : MonoBehaviour
 
     void Update()
     {
+        IntersectsWithIntObj();
+
         pinching = pinchScript.IsPinching;
         startPinch = pinchScript.DidStartPinch;
         endPinch = pinchScript.DidEndPinch;
 
+        if (!IntersectsWithIntObj())
+        {
+            if (startPinch) StartCoroutine(isGrabbingSmth());
+            if (endPinch) { StopCoroutine(isGrabbingSmth()); HideMagicCircle(); }
 
-        if (startPinch) StartCoroutine(isGrabbingSmth());
-        if (endPinch) { StopCoroutine(isGrabbingSmth()); HideMagicCircle(); }
-       
 
-        if (isGrabbing && !objectHidden) HideMagicCircle();
-        if (pinching && objectHidden && !isGrabbing) ShowMagicCircle();
+            if (isGrabbing && !objectHidden) HideMagicCircle();
+            if (pinching && objectHidden && !isGrabbing) ShowMagicCircle();
+        }
 
-        
 
     }
+
+    private bool IntersectsWithIntObj()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.15f, ignoreLayers);
+
+        if (hitColliders.Length > 0)
+        {
+            //Debug.Log(hitColliders.Length);
+            isGrabbing = true;
+            HideMagicCircle();
+            return intersectsWithIntObj = true;    
+        }
+        else  return intersectsWithIntObj = false;
+
+    }
+
     private void FixedUpdate()
     {
         if (pinching)
@@ -230,6 +239,9 @@ public class MagicCircleManager : MonoBehaviour
 
             yield return null;
         }
-       
+
     }
+
+    
+
 }

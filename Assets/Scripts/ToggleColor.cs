@@ -9,22 +9,25 @@ public class ToggleColor : MonoBehaviour
     public Material toggRedleMaterial;
     public Color yellow;
     private Color _originalCol;
+    public bool useOutline;
+    private QuickOutline outliner;
 
 
 
 
 
     // Use this for initialization
-    void Start()
+    IEnumerator Start()
     {
-
+        yield return new WaitForSeconds(0);
+        
 
     }
 
     private void Awake()
     {
-        //_mat = GetComponent<Renderer>().material;
-        //_originalCol = _mat.color;
+        if (useOutline)
+            outliner = GetComponent<QuickOutline>();
 
         RetrieveOriginalColor();
 
@@ -43,15 +46,15 @@ public class ToggleColor : MonoBehaviour
         {
            
            ChangeMaterilaTo(_mat, _originalCol);
-            //GetComponent<Renderer>().material = _mat;
-            //_mat.color = _originalCol;
+            if (useOutline)
+                outliner.OutlineWidth = 0;
 
         }
         else
         {
             ChangeMaterilaTo(_mat, yellow);
-            //GetComponent<Renderer>().material = _mat;
-            //_mat.color = yellow;
+            if (useOutline)
+                outliner.OutlineWidth = 2;
 
         }
     }

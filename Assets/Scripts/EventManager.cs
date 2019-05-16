@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EventManager : MonoBehaviour
 {
+    public Animator animator;
+
 
     public bool IceTrayOpen;
     public bool GlovesOn;
@@ -13,19 +16,27 @@ public class EventManager : MonoBehaviour
     public GameObject GlovesArrow;
     public GameObject IcePalletsArrow;
 
+    private bool cardboardGetOpend;
 
 
+   
 
     // Use this for initialization
-    void Start()
+    IEnumerator Start()
     {
+        
+        yield return new WaitForEndOfFrame();
+        FadeManager.instance.FadeIn();
        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            FadeManager.instance.FadeOutToScene(0);           
+        }
     }
     private void Awake()
     {
@@ -44,14 +55,13 @@ public class EventManager : MonoBehaviour
     private void CheckGloves(bool on)
     {
         GlovesOn = on;
-        Debug.Log(GlovesOn);
+        
         MakeUpdate();
     }
 
 
     private void GetDoorStatus(GameObject go, bool status)
     {
-
         if (go.name == "DoorsIce")
         {
             IceTrayOpen = status;
@@ -60,15 +70,27 @@ public class EventManager : MonoBehaviour
                 IceTrayArrow.SetActive(false);
             }
         }
+        else if (go.CompareTag("cardboard"))
+        {
+            IcePalletsArrow.SetActive(false);
+            cardboardGetOpend = true;
+        }
+
         MakeUpdate();
     }
     void MakeUpdate()
     {
         if (IceTrayOpen && !GlovesOn)
-        {           
+        {
             GlovesArrow.SetActive(true);
         }
-        else GlovesArrow.SetActive(false);
+
+        else
+        {
+            GlovesArrow.SetActive(false);
+            if (!cardboardGetOpend)
+                IcePalletsArrow.SetActive(true);
+        }
     }
 
     void  ChechIceCount(int count)
@@ -76,6 +98,17 @@ public class EventManager : MonoBehaviour
         if (count == 0)
             AllIceLoaded = true;
         else AllIceLoaded = false;
+    }
+
+    public void FadeToLevel()
+    {
+        animator.SetTrigger("FadeOut");
+       
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(0);
     }
 
 

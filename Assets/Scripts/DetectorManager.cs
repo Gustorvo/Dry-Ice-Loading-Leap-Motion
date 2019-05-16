@@ -20,12 +20,12 @@ public class DetectorManager : MonoBehaviour
     {
         if (current == 2) // reached the last lement, toggle back
         {
-            DoJob(CapsulHands[0]);// first element of Hands Array is a left hand
+            DoJob(CapsulHands[1]);// first element [0] of Hands Array is a left hand, [1] second - right hand
             current = 1;
         }
         else
         {
-            DoJob(RiggedHands[0]);
+            DoJob(RiggedHands[1]);
             current = 2;
         }
     }

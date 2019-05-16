@@ -6,7 +6,7 @@ using System;
 public class VRTeleporter : MonoBehaviour
 {
     public Vector3 Offset;
-    private bool runNormal;
+    
 
     private Task AnimatedArcRoutine;
     public float speed = 10;
@@ -35,11 +35,12 @@ public class VRTeleporter : MonoBehaviour
     private Vector3 groundPos; // detected ground position
 
     private Vector3 lastNormal; // detected surface normal
-
-    private bool groundDetected = false;
+          
 
     private List<Vector3> vertexList = new List<Vector3>(); // vertex on arc
 
+    private bool groundDetected = false;
+    private bool runNormal;
     private bool displayActive = false; // don't update path when it's false.
 
 
@@ -71,7 +72,9 @@ public class VRTeleporter : MonoBehaviour
             AnimatedArcRoutine = new Task(BeginAnimateArc());
         }
         if (!active)
-            positionMarker.SetActive(active);
+        {
+            positionMarker.SetActive(active);            
+        }
     }
 
 
@@ -102,22 +105,26 @@ public class VRTeleporter : MonoBehaviour
         
         arcRenderer.positionCount = 0;
         arcRenderer.enabled = true;
-        while (arcRenderer.positionCount != vertexList.ToArray().Length -1)
+        if (groundDetected)
         {
-            for (int i = 1; i < vertexList.ToArray().Length; i++)
+            while (arcRenderer.positionCount != vertexList.ToArray().Length - 1)
             {
-                Vector3[] tempPos = vertexList.ToArray();
-                
-                Array.Resize(ref tempPos, i ); // increments arch path every frame
-                
-                arcRenderer.positionCount = i;
-                arcRenderer.SetPositions(tempPos);
-                yield return new WaitForSeconds(0.015f); //WaitForEndOfFrame();
-            }
+                for (int i = 1; i < vertexList.ToArray().Length; i++)
+                {
+                    Vector3[] tempPos = vertexList.ToArray();
 
+                    Array.Resize(ref tempPos, i); // increments arch path every frame
+
+                    arcRenderer.positionCount = i;
+                    arcRenderer.SetPositions(tempPos);
+                    yield return new WaitForSeconds(0.015f); //WaitForEndOfFrame();
+                }
+            }
         }
         
-        runNormal = true;        // start render the arch nornally, every frame.
+        runNormal = true; // start render the arch nornally, every frame.
+        arcRenderer.enabled = false; //make sure  to give over controll of arcRenderer to runNormal 
+
         AnimatedArcRoutine = null;
     }
 

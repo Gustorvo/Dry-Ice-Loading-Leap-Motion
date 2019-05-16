@@ -11,6 +11,7 @@ TagManager:
   - occupied
   - empty
   - IcePlaceholder
+  - cardboard
   layers:
   - Default
   - TransparentFX

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Leap.Unity.Interaction;
 
 public class DoorsOpenClose : MonoBehaviour, IDoor
 {
@@ -31,6 +32,8 @@ public class DoorsOpenClose : MonoBehaviour, IDoor
 
     private bool _openCommandComesOutside;
 
+    public InteractionBehaviour[] _allIntChildren;
+
     private void Awake()
     {
         InitStartData();
@@ -41,6 +44,13 @@ public class DoorsOpenClose : MonoBehaviour, IDoor
         }
 
         cols = GetComponentsInChildren<Collider>();
+        InteractionBehaviour intComp = GetComponent<InteractionBehaviour>();
+        _allIntChildren = GetComponentsInChildren<InteractionBehaviour>();
+        if (intComp != null && _allIntChildren != null)
+        {
+            Array.Resize(ref _allIntChildren, _allIntChildren.Length + 1);
+            _allIntChildren[_allIntChildren.Length] = intComp;
+        }
 
         GetCollidersInOthers();
         CheckRestriction();
@@ -101,12 +111,14 @@ public class DoorsOpenClose : MonoBehaviour, IDoor
         }
 
         TargetRotation = ON ? ClosedRotation : OpenRotation;
-        
+
         ON = !ON;
         CheckRestriction();
 
         if (OnDoorOpen != null) // check for subscribers
             OnDoorOpen(gameObject, ON); // call the event OnDoorOpen
+        OnOpenCloseBegin(); // call second event
+        ToggleIntObjs(true);
 
         Hide();
         if (PairDoor != null && !_openCommandComesOutside)
@@ -141,6 +153,8 @@ public class DoorsOpenClose : MonoBehaviour, IDoor
             {
                 _transform.localRotation = TargetRotation;
                 rotate = false;
+                OnOpenCloseEnd();
+                ToggleIntObjs(false);
             }
         }
     }
@@ -161,9 +175,9 @@ public class DoorsOpenClose : MonoBehaviour, IDoor
     }
 
 
-    private IEnumerator CollidersOnOff (bool ON)
+    private IEnumerator CollidersOnOff(bool ON)
     {
-       yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
         foreach (var col in othersCols)
         {
             col.enabled = ON;
@@ -176,29 +190,29 @@ public class DoorsOpenClose : MonoBehaviour, IDoor
         if (OlderItemRestrictsClose != null && ON)
         {
             StartCoroutine("CollidersOnOff", ON);
-                      
+
         }
 
         if (OlderItemRestrictsClose != null && !ON)
         {
             StartCoroutine("CollidersOnOff", ON);
-            
+
         }
 
 
         if (OlderItemRestrictsOpen != null && ON)
         {
             StartCoroutine("CollidersOnOff", !ON);
-                       
+
         }
 
         if (OlderItemRestrictsOpen != null && !ON)
         {
             StartCoroutine("CollidersOnOff", !ON);
-           
+
         }
-        
-        
+
+
     }
 
     void GetCollidersInOthers()
@@ -210,5 +224,20 @@ public class DoorsOpenClose : MonoBehaviour, IDoor
     }
 
     public Action<GameObject, bool> OnDoorOpen = delegate { };
+    public Action OnOpenCloseBegin = delegate { };
+    public Action OnOpenCloseEnd = delegate { };
+
+    private void ToggleIntObjs(bool ignore)
+    {
+        if (_allIntChildren.Length > 0)
+        {
+            foreach (var item in _allIntChildren)
+            {
+                if (ignore)
+                    item.ignoreContact = ignore;
+                else item.ignoreContact = ignore;
+            }
+        }
+    }
 
 }

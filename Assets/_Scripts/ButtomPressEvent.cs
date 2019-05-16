@@ -70,9 +70,13 @@ public class ButtomPressEvent : MonoBehaviour
     {
         //m_Text.text = Mathf.Round((transform.localEulerAngles.z - offsetAngle)).ToString();
 
+        
+       
+    }
+    private void FixedUpdate()
+    {
         if (_intBtn.isHovered && CheckBtn())
             CheckButtonAngle();
-       
     }
 
     private void CheckButtonAngle()
