@@ -42,6 +42,15 @@ public class VRTeleporter : MonoBehaviour
     private bool groundDetected = false;
     private bool runNormal;
     private bool displayActive = false; // don't update path when it's false.
+    
+
+   
+
+   
+
+    
+
+   
 
 
     // Teleport target transform to ground position
@@ -68,7 +77,7 @@ public class VRTeleporter : MonoBehaviour
         StartCoroutine(EnableLineRendererOnNextFrame(active));
         if (active && AnimatedArcRoutine == null)
         {
-            runNormal = false;
+            runNormal = false; // must be set to false to start animate arch
             AnimatedArcRoutine = new Task(BeginAnimateArc());
         }
         if (!active)
@@ -87,7 +96,7 @@ public class VRTeleporter : MonoBehaviour
 
     private void Start()
     {
-
+        displayActive = true;
     }
 
     private void Update()
@@ -133,14 +142,14 @@ public class VRTeleporter : MonoBehaviour
 
     private void UpdatePath()
     {
+        
         groundDetected = false;
+        //GroundDetected = false;
 
         vertexList.Clear(); // delete all previouse vertices
 
 
-        velocity = Quaternion.AngleAxis(-angle, transform.right) * transform.forward * strength;
-
-        RaycastHit hit;
+        velocity = Quaternion.AngleAxis(-angle, transform.right) * transform.forward * strength;        
 
 
         Vector3 pos = transform.position; // take off position
@@ -155,10 +164,11 @@ public class VRTeleporter : MonoBehaviour
             velocity += Physics.gravity * vertexDelta;
 
             vertexList.Add(newPos); // add new calculated vertex
-
+            RaycastHit hit;
             // linecast between last vertex and current vertex
             if (Physics.Linecast(pos, newPos, out hit, ~excludeLayers))// includeLayers))
             {
+                //GroundDetected = true;
                 groundDetected = true;
                 groundPos = hit.point;
                 lastNormal = hit.normal;
@@ -166,6 +176,7 @@ public class VRTeleporter : MonoBehaviour
 
             pos = newPos; // update current vertex as last vertex
         }
+        //if (!groundDetected) { OnGroundLost(); Debug.Log("Called " + OnGroundLost); }
 
 
         // positionMarker.SetActive(groundDetected);

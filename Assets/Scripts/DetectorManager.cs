@@ -32,7 +32,7 @@ public class DetectorManager : MonoBehaviour
 
     void DoJob(HandModelBase model)
     {
-        PalmDetector.GetComponent<PalmDirectionDetector>().HandModel = model;
+        //PalmDetector.GetComponent<PalmDirectionDetector>().HandModel = model;
         PinchDetector.GetComponent<PinchDetector>().HandModel = model;
     }
 }

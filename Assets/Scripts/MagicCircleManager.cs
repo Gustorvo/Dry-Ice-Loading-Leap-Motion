@@ -27,6 +27,7 @@ public class MagicCircleManager : MonoBehaviour
     public float speed = 1;
     public PinchDetector pinchScript;
     public Detector palmScript;
+    public VRTeleporter teleportScript;
     public InteractionController intController;
 
 
