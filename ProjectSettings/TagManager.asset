@@ -28,7 +28,7 @@ TagManager:
   - floor
   - int button
   - hand
-  - 
+  - ignoreIntCollision
   - 
   - 
   - 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{5bb19ec9-8cf4-4753-92af-1b746bb1e4e6}">
+        <property name="assetPath">
+            <value>door_lock_key_01.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>48</value>
+        </property>
+        <property name="channelCount">
+            <value>1</value>
+        </property>
+        <property name="length">
+            <value>1.4081250000000001</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{37128aea-d9b0-4e0e-b4d1-66b53ec94fef}</destination>
+        </relationship>
+    </object>
+</objects>

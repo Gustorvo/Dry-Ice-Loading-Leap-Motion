@@ -6,7 +6,9 @@ using System;
 public class VRTeleporter : MonoBehaviour
 {
     public Vector3 Offset;
-    
+    public Action<float> OnTeleportBegin = delegate { };
+    public Action<bool> OnArchActive = delegate { };
+    public Action<GameObject> OnArchHitFloor = delegate { };
 
     private Task AnimatedArcRoutine;
     public float speed = 10;
@@ -35,32 +37,26 @@ public class VRTeleporter : MonoBehaviour
     private Vector3 groundPos; // detected ground position
 
     private Vector3 lastNormal; // detected surface normal
-          
+
 
     private List<Vector3> vertexList = new List<Vector3>(); // vertex on arc
 
     private bool groundDetected = false;
     private bool runNormal;
     private bool displayActive = false; // don't update path when it's false.
-    
-
-   
-
-   
-
-    
-
-   
-
+    private float distanceToTarget;
+    private bool hitActionTriggered;
 
     // Teleport target transform to ground position
     public void Teleport()
     {
         if (groundDetected && runNormal)
         {
+            OnTeleportBegin(distanceToTarget);
             // bodyTransforn.position = groundPos + lastNormal * 0.01f;
             StartCoroutine(TeleportOverSpeed(bodyTransforn, (groundPos + lastNormal * 0.01f), speed));
             ToggleDisplay(false);
+
 
         }
         else
@@ -82,7 +78,8 @@ public class VRTeleporter : MonoBehaviour
         }
         if (!active)
         {
-            positionMarker.SetActive(active);            
+            positionMarker.SetActive(active);
+            OnArchActive(active);
         }
     }
 
@@ -105,13 +102,14 @@ public class VRTeleporter : MonoBehaviour
         {
             UpdatePath();
         }
+        else hitActionTriggered = false; // reset OnArchHitFloor trigger Event
 
     }
 
     IEnumerator BeginAnimateArc()
     {
         //yield return new WaitForEndOfFrame();
-        
+        OnArchActive(true);
         arcRenderer.positionCount = 0;
         arcRenderer.enabled = true;
         if (groundDetected)
@@ -130,7 +128,7 @@ public class VRTeleporter : MonoBehaviour
                 }
             }
         }
-        
+
         runNormal = true; // start render the arch nornally, every frame.
         arcRenderer.enabled = false; //make sure  to give over controll of arcRenderer to runNormal 
 
@@ -142,14 +140,14 @@ public class VRTeleporter : MonoBehaviour
 
     private void UpdatePath()
     {
-        
+
         groundDetected = false;
         //GroundDetected = false;
 
         vertexList.Clear(); // delete all previouse vertices
 
 
-        velocity = Quaternion.AngleAxis(-angle, transform.right) * transform.forward * strength;        
+        velocity = Quaternion.AngleAxis(-angle, transform.right) * transform.forward * strength;
 
 
         Vector3 pos = transform.position; // take off position
@@ -172,6 +170,7 @@ public class VRTeleporter : MonoBehaviour
                 groundDetected = true;
                 groundPos = hit.point;
                 lastNormal = hit.normal;
+                distanceToTarget = Vector3.Distance(transform.position, hit.point);
             }
 
             pos = newPos; // update current vertex as last vertex
@@ -194,13 +193,15 @@ public class VRTeleporter : MonoBehaviour
 
         if (runNormal)
         {
+            if (!hitActionTriggered) { OnArchHitFloor(positionMarker); hitActionTriggered = true; }
             positionMarker.SetActive(groundDetected);
             arcRenderer.enabled = groundDetected;
-            arcRenderer.positionCount = vertexList.Count -1; // -1 to skipp rendering the end of the arch
+            arcRenderer.positionCount = vertexList.Count - 1; // -1 to skipp rendering the end of the arch
             Vector3[] tempPos = vertexList.ToArray();
-            Array.Resize(ref tempPos, vertexList.Count -1); // -1 to skipp rendering the end of the arch
+            Array.Resize(ref tempPos, vertexList.Count - 1); // -1 to skipp rendering the end of the arch
             arcRenderer.SetPositions(tempPos);
         }
+
 
     }
 
@@ -208,6 +209,9 @@ public class VRTeleporter : MonoBehaviour
 
     public IEnumerator TeleportOverSpeed(Transform objectToMove, Vector3 end, float speed) //teleporter over time
     {
+        float delay = Vector3.Distance(transform.position, end) * 0.05f;
+
+        yield return new WaitForSeconds(delay);
         // speed should be 1 unit per second
         while (objectToMove.transform.position != end + Offset)
         {

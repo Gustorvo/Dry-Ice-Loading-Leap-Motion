@@ -35,7 +35,7 @@ public class FadeManager : MonoBehaviour {
 
     public void FadeIn()
     {
-        StartCoroutine(BeginFade());
+       StartCoroutine(BeginFade());
     }
     private IEnumerator BeginFade()
     {

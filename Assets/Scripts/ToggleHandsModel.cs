@@ -16,7 +16,9 @@ public class ToggleHandsModel : MonoBehaviour {
     public DetectorManager _detectorManagerScript;
     public Material[] _material;
     Renderer[] _ren;
-   
+    [FMODUnity.EventRef]
+    public string OnToggleHandsEvent;
+
 
 
 
@@ -26,6 +28,7 @@ public class ToggleHandsModel : MonoBehaviour {
          _ren = GetComponentsInChildren<Renderer>();
         intGloves = gameObject.GetComponent<InteractionBehaviour>();
          intGloves.OnHoverBegin += ToggleHands;
+        intGloves.OnHoverBegin += PlaySound;
 
        // intGloves.OnHoverBegin(ToggleHands);
     }
@@ -40,6 +43,12 @@ public class ToggleHandsModel : MonoBehaviour {
 
     public Action<bool> OnGlovesOn = delegate { };
     
+    private void PlaySound()
+    {
+        string EventSound;
+        EventSound = OnToggleHandsEvent;
+        FMODUnity.RuntimeManager.PlayOneShot(EventSound, transform.position);
+    }
 
     public void ToggleHands()
     {

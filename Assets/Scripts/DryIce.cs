@@ -8,15 +8,26 @@ using System;
 public class DryIce : MonoBehaviour, IDryIce
 {
 
+    [FMODUnity.EventRef]
+    public string OnIceDroppedSound;
+
+    [FMODUnity.EventRef]
+    public string OnIceGraspedSound;
+
 
     private InteractionBehaviour intObj;
 
 
-    public Action<GameObject> OnIceReleased;
-    public Action<GameObject> OnIceGrasped;
+    public Action<GameObject> OnIceReleased = delegate { };
+    public Action<GameObject> OnIceGrasped = delegate { };
 
-    public void BePlaced()
+    public void PlaySound()
     {
+        string EventSound;
+        if (intObj.isGrasped) EventSound = OnIceGraspedSound;
+        else EventSound = OnIceDroppedSound;
+
+        FMODUnity.RuntimeManager.PlayOneShot(EventSound, transform.position);
 
     }
 
@@ -28,6 +39,7 @@ public class DryIce : MonoBehaviour, IDryIce
 
         intObj.OnGraspEnd += UpdateStatus;
         intObj.OnGraspBegin += UpdateStatus;
+        intObj.OnGraspBegin += PlaySound;
     }
 
 
@@ -44,7 +56,7 @@ public class DryIce : MonoBehaviour, IDryIce
         {
             _collider = other;
         }
-        
+
     }
     private void OnTriggerExit(Collider other)
     {
@@ -56,16 +68,15 @@ public class DryIce : MonoBehaviour, IDryIce
     }
 
     void UpdateStatus()
-        
-    {        
+
+    {
         if (intObj == null) Debug.Log("int obj is null " + intObj.gameObject);
 
         if (_collider != null && !intObj.isGrasped)
             OnIceReleased(gameObject);
         else if (_collider != null && intObj.isGrasped)
         {
-            if (OnIceGrasped != null)
-                OnIceGrasped(gameObject);
+            OnIceGrasped(gameObject);
         }
     }
 

@@ -10,7 +10,13 @@ using UnityEngine.Events;
 public class MagicCircleManager : MonoBehaviour
 {
     
-    
+    [FMODUnity.EventRef]
+    public string CircleYellow;
+    [FMODUnity.EventRef]
+    public string CircleYellowReleased;
+    [FMODUnity.EventRef]
+    public string CircleRed;
+
     private bool intersectsWithIntObj;
 
     public LayerMask ignoreLayers;
@@ -68,18 +74,14 @@ public class MagicCircleManager : MonoBehaviour
             Hand firstHand = hands[0];
             return firstHand;
         }
-
         else
         {
             return null;
         }
-
-
     }
 
     IEnumerator isGrabbingSmth()
-    {
-        
+    {        
         //isGrabbing = false;
         while (pinching)
         {
@@ -91,7 +93,7 @@ public class MagicCircleManager : MonoBehaviour
             if (ReturnHand() != null) // skip empty frames
             {
                 float probability = ReturnHand().GrabStrength;
-                if (probability > .9f)
+                if (probability > .99f)
                     isGrabbing = true;
                 else isGrabbing = false;
                 
@@ -109,11 +111,16 @@ public class MagicCircleManager : MonoBehaviour
         Debug.Log(_hand.GrabStrength);
     }
 
+    public void PlaySound(string soundEvent)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(soundEvent, transform.position);
+    }
     public void ShowMagicCircle()
     {
         if (!isGrabbing)
         {
-            OnCircleShow.Invoke();
+            OnCircleShow.Invoke(); // yellow and green show states
+            PlaySound(CircleYellow);
             
             objectHidden = false;
             
@@ -136,10 +143,11 @@ public class MagicCircleManager : MonoBehaviour
            
             StopCoroutine(CheckPalm());
             if (palmScript.IsActive && !isGrabbing && !IntersectsWithIntObj()) OnCircleHide.Invoke(); // teleprot
-            else if (isGrabbing) OnPalmAcriveButGrabBegin.Invoke(); // red color
+            else if (isGrabbing) { OnPalmAcriveButGrabBegin.Invoke(); PlaySound(CircleRed); } // red color
             else
             {
-                OnCircleHideButPalmEndFacingFloor.Invoke();
+                OnCircleHideButPalmEndFacingFloor.Invoke(); // yellow hide state
+                PlaySound(CircleYellowReleased);
 
             }
 
@@ -171,7 +179,8 @@ public class MagicCircleManager : MonoBehaviour
             }
             else if (!palmScript.IsActive && invoked)
             {
-                OnPalmEndFacingFloor.Invoke(); // yellow
+                OnPalmEndFacingFloor.Invoke(); // yellow show state
+                //PlaySound(CircleYellowReleased);
                
                 invoked = false;
             }

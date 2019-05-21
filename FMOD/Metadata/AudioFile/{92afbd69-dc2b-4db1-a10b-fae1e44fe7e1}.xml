@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{92afbd69-dc2b-4db1-a10b-fae1e44fe7e1}">
+        <property name="assetPath">
+            <value>NYC AMB Corona Park B-Format.wav</value>
+        </property>
+        <property name="isStreaming">
+            <value>true</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>96</value>
+        </property>
+        <property name="channelCount">
+            <value>4</value>
+        </property>
+        <property name="length">
+            <value>517.83132291666664</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{37128aea-d9b0-4e0e-b4d1-66b53ec94fef}</destination>
+        </relationship>
+    </object>
+</objects>

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: 
-  SourceProjectPathUnformatted: 
-  SourceBankPathUnformatted: 
+  sourceProjectPath: FMOD\Main.fspro
+  SourceProjectPathUnformatted: FMOD\Main.fspro
+  SourceBankPathUnformatted: FMOD\Build
   AutomaticEventLoading: 1
   AutomaticSampleLoading: 0
   ImportType: 0
@@ -44,7 +44,9 @@ MonoBehaviour:
     Value: 1
   - Platform: 2
     Value: 0
-  BankDirectorySettings: []
+  BankDirectorySettings:
+  - Platform: 2
+    Value: Desktop
   VirtualChannelSettings:
   - Platform: 1
     Value: 1024
@@ -55,6 +57,10 @@ MonoBehaviour:
     Value: 256
   - Platform: 2
     Value: 32
-  Plugins: []
-  MasterBanks: []
-  Banks: []
+  Plugins:
+  - resonanceaudio
+  MasterBanks:
+  - Master Bank
+  Banks:
+  - Interaction
+  LiveUpdatePort: 9264

@@ -1,33 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using Leap.Unity.Interaction;
 
 public class EventManager : MonoBehaviour
 {
-    public Animator animator;
+    //public Animator animator;
 
-
+    public UnityEvent OnIceGraspedWithNoGloves;
+    public UnityEvent OnGlovesGetOn;
     public bool IceTrayOpen;
     public bool GlovesOn;
     public bool AllIceLoaded;
+    public VRTeleporter teleport;
 
     public GameObject IceTrayArrow;
     public GameObject GlovesArrow;
     public GameObject IcePalletsArrow;
 
+    public GameObject Stage1;
+    public GameObject Stage2;
+
+    public GameObject TutorialButton;
+    public GameObject RestartButton;
+
     private bool cardboardGetOpend;
+    private int teleportCount;
 
 
-   
+
 
     // Use this for initialization
     IEnumerator Start()
     {
-        
+
         yield return new WaitForEndOfFrame();
         FadeManager.instance.FadeIn();
-       
+        teleport.OnTeleportBegin += CountTeleport;
     }
 
     // Update is called once per frame
@@ -35,7 +46,7 @@ public class EventManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            FadeManager.instance.FadeOutToScene(0);           
+            FadeManager.instance.FadeOutToScene(0);
         }
     }
     private void Awake()
@@ -43,6 +54,7 @@ public class EventManager : MonoBehaviour
         DoorsOpenClose[] doorsScript = FindObjectsOfType<DoorsOpenClose>();
         ToggleHandsModel glovesScript = FindObjectOfType<ToggleHandsModel>();
         DryIcePlaceholder icePlaceholderScript = FindObjectOfType<DryIcePlaceholder>();
+        DryIce[] iceBlocks = FindObjectsOfType<DryIce>();
 
         icePlaceholderScript.OnCountChanged += ChechIceCount;
         glovesScript.OnGlovesOn += CheckGloves;
@@ -50,12 +62,45 @@ public class EventManager : MonoBehaviour
         {
             item.OnDoorOpen += GetDoorStatus;
         }
+
+        foreach (var item in iceBlocks)
+        {
+            item.GetComponent<InteractionBehaviour>().OnGraspBegin += OnIceBeingGrasped;
+        }
+    }
+
+    private void OnIceBeingGrasped()
+    {
+        if (!GlovesOn)
+        {
+            OnIceGraspedWithNoGloves.Invoke(); // show warning
+            GlovesArrow.SetActive(true);
+        }
+    }
+
+    private void CountTeleport(float nothing)
+    {
+        teleportCount++;
+        if (teleportCount >= 2) GoToNextStage();
+    }
+
+    void GoToNextStage()
+    {
+        TutorialButton.SetActive(false);
+        RestartButton.SetActive(true);
+        Stage1.SetActive(false);
+        Stage2.SetActive(true);
     }
 
     private void CheckGloves(bool on)
     {
         GlovesOn = on;
-        
+        if (GlovesOn)
+        {
+            OnGlovesGetOn.Invoke(); // hide information board
+            GlovesArrow.SetActive(false);
+        }
+
         MakeUpdate();
     }
 
@@ -65,6 +110,7 @@ public class EventManager : MonoBehaviour
         if (go.name == "DoorsIce")
         {
             IceTrayOpen = status;
+            Debug.Log(status);
             if (IceTrayOpen)
             {
                 IceTrayArrow.SetActive(false);
@@ -80,31 +126,21 @@ public class EventManager : MonoBehaviour
     }
     void MakeUpdate()
     {
-        if (IceTrayOpen && !GlovesOn)
-        {
-            GlovesArrow.SetActive(true);
-        }
+        GoToNextStage();
 
-        else
-        {
-            GlovesArrow.SetActive(false);
-            if (!cardboardGetOpend)
-                IcePalletsArrow.SetActive(true);
-        }
+        if (!cardboardGetOpend)
+            IcePalletsArrow.SetActive(true);
+
     }
 
-    void  ChechIceCount(int count)
+    void ChechIceCount(int count)
     {
         if (count == 0)
             AllIceLoaded = true;
         else AllIceLoaded = false;
     }
 
-    public void FadeToLevel()
-    {
-        animator.SetTrigger("FadeOut");
-       
-    }
+
 
     public void ReloadScene()
     {

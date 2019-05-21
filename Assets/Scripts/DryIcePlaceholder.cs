@@ -53,9 +53,17 @@ public class DryIcePlaceholder : MonoBehaviour
 
             if (_IntIce == null)
                 Debug.Log("int obj is null " + _IntIce.gameObject);
-            if (!_IntIce.isGrasped)
+            if (_IntIce.isGrasped)
+            {
+                _IntIce.ReleaseFromGrasp();
+                _IntIce.ignoreGrasping = true;
+                yield return new WaitForSeconds(0.25f);
+                _IntIce.ignoreGrasping = false;
+            }
+            if (!_IntIce.isGrasped || _IntIce.isSuspended)
             {
                 ice.transform.DOMove(Ice[0].transform.position, 0.25f).OnComplete(MakeKinematic);
+                TriggerSoundEvent(_IntIce); // trigger sound event on the DryIce game object
                 ice.transform.DORotate(Ice[0].transform.rotation.eulerAngles, 0.1f);// // GetComponent<Rigidbody>().MovePosition(Ice[1].transform.position);
 
                 IceUsed.Add(Ice[0]);
@@ -90,6 +98,17 @@ public class DryIcePlaceholder : MonoBehaviour
     void MakeKinematic()
     {
         _IntIce.GetComponent<Rigidbody>().isKinematic = true;
+
+
+    }
+
+    void TriggerSoundEvent(InteractionBehaviour intObj)
+    {
+        Iice = intObj.GetComponent<DryIce>();
+        if (Iice != null)
+        {
+            Iice.PlaySound();
+        }
     }
 
     GameObject tempGO;
@@ -118,23 +137,26 @@ public class DryIcePlaceholder : MonoBehaviour
     IEnumerator OutlinePlaceholder()
     {
         yield return new WaitForSecondsRealtime(0.25f);
-        GameObject[] IceArray = Ice.ToArray();
-        GameObject go = IceArray[0];       
 
-        QuickOutline _outline = go.GetComponent<QuickOutline>();
-        go.GetComponent<MeshRenderer>().enabled = true;
-       // _outline.enabled = true;
-        while (_outline.OutlineWidth < 4)
+        if (Ice.Count != 0)
         {
-            _outline.OutlineWidth += 0.25f;
-            yield return new WaitForSeconds(0.05f);
+            GameObject go = Ice[0];
+
+            QuickOutline _outline = go.GetComponent<QuickOutline>();
+            go.GetComponent<MeshRenderer>().enabled = true;
+            // _outline.enabled = true;
+            while (_outline.OutlineWidth < 4)
+            {
+                _outline.OutlineWidth += 0.25f;
+                yield return new WaitForSeconds(0.05f);
+            }
+            while (_outline.OutlineWidth == 0)
+            {
+                _outline.OutlineWidth -= 0.25f;
+                yield return new WaitForSeconds(0.05f);
+            }
+            //_outline.enabled = false;
+            go.GetComponent<MeshRenderer>().enabled = false;
         }
-        while (_outline.OutlineWidth == 0)
-        {
-            _outline.OutlineWidth -= 0.25f;
-            yield return new WaitForSeconds(0.05f);
-        }
-        //_outline.enabled = false;
-        go.GetComponent<MeshRenderer>().enabled = false;
     }
 }

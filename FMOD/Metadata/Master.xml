@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="MixerMaster" id="{52dcb85f-50bf-4885-9065-4befe4735cf9}">
+        <property name="name">
+            <value>Master Bus</value>
+        </property>
+        <relationship name="effectChain">
+            <destination>{2650bf5f-5a6a-4ca7-8cb2-facc5b55d29c}</destination>
+        </relationship>
+        <relationship name="panner">
+            <destination>{6e23d741-73e2-4c5a-99cc-635df0f83a75}</destination>
+        </relationship>
+        <relationship name="mixer">
+            <destination>{f0a85695-7925-440d-867d-6b610e8789c2}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusEffectChain" id="{2650bf5f-5a6a-4ca7-8cb2-facc5b55d29c}">
+        <relationship name="effects">
+            <destination>{2be42c44-7037-4658-839a-9d9f6f28643c}</destination>
+            <destination>{276070d5-fd8b-484c-b500-cfb635d1b311}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusPanner" id="{6e23d741-73e2-4c5a-99cc-635df0f83a75}">
+        <property name="overridingOutputFormat">
+            <value>1</value>
+        </property>
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
+    <object class="PluginEffect" id="{2be42c44-7037-4658-839a-9d9f6f28643c}">
+        <relationship name="plugin">
+            <destination>{1a3f3a2d-4bdc-4670-ae54-efbda7db52c1}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusFader" id="{276070d5-fd8b-484c-b500-cfb635d1b311}"/>
+    <object class="Plugin" id="{1a3f3a2d-4bdc-4670-ae54-efbda7db52c1}">
+        <property name="identifier">
+            <value>Resonance Audio Listener</value>
+        </property>
+        <relationship name="pluginParameters">
+            <destination>{707fd410-92d3-428e-a6be-c0d811022d4f}</destination>
+            <destination>{47ea77d1-aef7-416f-ab70-e84773a5bf19}</destination>
+        </relationship>
+    </object>
+    <object class="FloatPluginParameter" id="{707fd410-92d3-428e-a6be-c0d811022d4f}">
+        <property name="name">
+            <value>Gain</value>
+        </property>
+        <property name="curve">
+            <value>LinearCurveStrategy{(0.000000,-80.000000)(1.000000,0.000000)}</value>
+        </property>
+        <property name="value">
+            <value>-9.99999975e-06</value>
+        </property>
+    </object>
+    <object class="DataPluginParameter" id="{47ea77d1-aef7-416f-ab70-e84773a5bf19}">
+        <property name="name">
+            <value>Room Properties</value>
+        </property>
+        <property name="dataType">
+            <value>0</value>
+        </property>
+    </object>
+</objects>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{3f33c554-76f9-45a9-8e24-517fdf82655f}">
+        <property name="assetPath">
+            <value>forklift_operating_VERY_long_hydraulic.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>1</value>
+        </property>
+        <property name="length">
+            <value>1.7356009070294784</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{37128aea-d9b0-4e0e-b4d1-66b53ec94fef}</destination>
+        </relationship>
+    </object>
+</objects>

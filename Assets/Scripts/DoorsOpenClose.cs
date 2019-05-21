@@ -97,6 +97,9 @@ public class DoorsOpenClose : MonoBehaviour, IDoor
 
     public void OpenCloseDoor()
     {
+        OnDoorOpen(gameObject, ON); // call the event OnDoorOpen
+        OnOpenCloseBegin(); // call second event
+
         if (ON && OlderItemRestrictsClose != null && OlderItemRestrictsClose.GetComponent<IDoor>().GetOpened())
         {
             print(name + " !!!!!!!!! restrict open");
@@ -115,9 +118,8 @@ public class DoorsOpenClose : MonoBehaviour, IDoor
         ON = !ON;
         CheckRestriction();
 
-        if (OnDoorOpen != null) // check for subscribers
-            OnDoorOpen(gameObject, ON); // call the event OnDoorOpen
-        OnOpenCloseBegin(); // call second event
+        
+            
         ToggleIntObjs(true);
 
         Hide();
@@ -226,6 +228,7 @@ public class DoorsOpenClose : MonoBehaviour, IDoor
     public Action<GameObject, bool> OnDoorOpen = delegate { };
     public Action OnOpenCloseBegin = delegate { };
     public Action OnOpenCloseEnd = delegate { };
+    
 
     private void ToggleIntObjs(bool ignore)
     {

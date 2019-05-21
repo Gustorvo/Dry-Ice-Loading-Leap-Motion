@@ -9,6 +9,7 @@ public class ObjectVisibilityTween : MonoBehaviour
     public bool Rotate;
     public bool Scale;
     public bool ScaleOnOutOnly;
+    public bool useWorldCoordinates;
 
 
     public bool isUsable { get; private set; }
@@ -27,18 +28,24 @@ public class ObjectVisibilityTween : MonoBehaviour
     Task deactivatingRoutine; // controlls CoRoutine;
     Task activatingRoutine;
 
+
+    private void Awake()
+    {
+        
+    }
     // Use this for initialization
     void Start()
     {
+       // myTween.SetAutoKill(false);
         if (TargetTransform == null)
             TargetTransform = gameObject.transform;
 
-        InitialPos = TargetTransform.localPosition;
-        InitialRot = TargetTransform.localEulerAngles;
-        InitialScale = TargetTransform.localScale;
+        GetInitialTransform();
+        //InitialPos = TargetTransform.localPosition;
+        //InitialRot = TargetTransform.localEulerAngles;
+        //InitialScale = TargetTransform.localScale;
 
         DoHideImmediately();
-
 
     }
 
@@ -48,23 +55,40 @@ public class ObjectVisibilityTween : MonoBehaviour
 
     }
 
+    private void GetInitialTransform()
+    {
+        if (useWorldCoordinates)
+        {
+            InitialPos = TargetTransform.position;
+            InitialRot = TargetTransform.eulerAngles;
+            InitialScale = TargetTransform.lossyScale;
+        }
+        else
+        {
+            InitialPos = TargetTransform.localPosition;
+            InitialRot = TargetTransform.localEulerAngles;
+            InitialScale = TargetTransform.localScale;
+        }
+    }
+
     public void DoShowWithDelay(float delay)
     {
         activatingRoutine = new Task(ShowRoutine(0.35f, delay));
     }
 
     public void DoShow(float duration)
-    { 
+    {
+        if (deactivatingRoutine != null && deactivatingRoutine.Running) deactivatingRoutine.Stop();
         activatingRoutine = new Task(ShowRoutine(duration, 0));
+        
     }
 
     IEnumerator ShowRoutine(float duration, float delay)
     { 
-        yield return new WaitForSecondsRealtime(delay);
-        if (deactivatingRoutine != null && deactivatingRoutine.Running) deactivatingRoutine.Stop();
+        yield return new WaitForSecondsRealtime(delay);      
 
 
-        //if (myTween != null) myTween.TogglePause();
+        if (myTween != null) myTween.TogglePause();
         TargetTransform.gameObject.SetActive(true);
 
 
@@ -94,8 +118,12 @@ public class ObjectVisibilityTween : MonoBehaviour
     IEnumerator HideRoutine(float duration, float delay)
     {        
         yield return new WaitForSecondsRealtime(delay);
-        if (activatingRoutine != null && activatingRoutine.Running) activatingRoutine.Stop();
-
+        if (activatingRoutine != null && activatingRoutine.Running)
+        {
+            activatingRoutine.Stop();
+            activatingRoutine = null;
+        }
+        
         //yield return new WaitUntil(() => allowTween);
 
          if (myTween != null && myTween.IsPlaying()) myTween.Pause();

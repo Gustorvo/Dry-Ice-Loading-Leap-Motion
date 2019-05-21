@@ -11,9 +11,536 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
-  EditorBanks: []
-  EditorEvents: []
-  MasterBanks: []
-  StringsBanks: []
-  stringsBankWriteTime: 0
+  EditorBanks:
+  - {fileID: 114044782278273660}
+  - {fileID: 114390678835560316}
+  - {fileID: 114945470577812202}
+  EditorEvents:
+  - {fileID: 114746699101392852}
+  - {fileID: 114376887533596332}
+  - {fileID: 114382283034625216}
+  - {fileID: 114358668246048580}
+  - {fileID: 114273233164990090}
+  - {fileID: 114918560698021166}
+  - {fileID: 114856761470935068}
+  - {fileID: 114179915157158590}
+  - {fileID: 114958254115333958}
+  - {fileID: 114123258297711628}
+  - {fileID: 114914725323719504}
+  - {fileID: 114815387646569534}
+  - {fileID: 114582340000081660}
+  - {fileID: 114685149382121016}
+  - {fileID: 114909172729773318}
+  MasterBanks:
+  - {fileID: 114390678835560316}
+  StringsBanks:
+  - {fileID: 114044782278273660}
+  stringsBankWriteTime: 636940838085602712
   cacheVersion: 3
+--- !u!114 &114044782278273660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master Bank.strings.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636940838085602712
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 1442
+  - Name: Mobile
+    Value: 1442
+  Exists: 1
+--- !u!114 &114123258297711628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GlovesOnOff
+  m_EditorClassIdentifier: 
+  Path: event:/GlovesOnOff
+  guid: db151b0cd9c78046bbf43677a71aba59
+  Banks:
+  - {fileID: 114945470577812202}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1387
+--- !u!114 &114179915157158590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/MagicCircleRed
+  m_EditorClassIdentifier: 
+  Path: event:/MagicCircleRed
+  guid: 925b9e06127fff4f8ef271555c74b065
+  Banks:
+  - {fileID: 114945470577812202}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1427
+--- !u!114 &114273233164990090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Cardbox open
+  m_EditorClassIdentifier: 
+  Path: event:/Cardbox open
+  guid: 89a0645135d3df429ccd5030a5fd5c66
+  Banks:
+  - {fileID: 114945470577812202}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 448
+--- !u!114 &114314176692251836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/MagicCircleGreen
+  m_EditorClassIdentifier: 
+  Path: event:/MagicCircleGreen
+  guid: e7005f5a487fe4459d60ea849e5bd8ae
+  Banks: []
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 457
+--- !u!114 &114358668246048580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Teleport
+  m_EditorClassIdentifier: 
+  Path: event:/Teleport
+  guid: 3e772d05402d104cb0a16d331cd74231
+  Banks:
+  - {fileID: 114945470577812202}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 211
+--- !u!114 &114376887533596332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/IcePickUp
+  m_EditorClassIdentifier: 
+  Path: event:/IcePickUp
+  guid: 0b4a5ca71fcb304b8fb1bc323cc2ac51
+  Banks:
+  - {fileID: 114945470577812202}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 250
+--- !u!114 &114382283034625216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/DoorOpen
+  m_EditorClassIdentifier: 
+  Path: event:/DoorOpen
+  guid: 1f8417dfa155634dbd698eaaec78e5a8
+  Banks:
+  - {fileID: 114945470577812202}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1000
+--- !u!114 &114390678835560316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master Bank.bank
+  m_EditorClassIdentifier: 
+  Path: C:\Unity Projects\Dry-Ice-Loading-Leap-Motion\FMOD\Build\Desktop\Master Bank.bank
+  lastModified: 636940838085567697
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 16513920
+  - Name: Mobile
+    Value: 4845856
+  Exists: 1
+--- !u!114 &114507471334378946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Teleport/DistanceToTarget
+  m_EditorClassIdentifier: 
+  Name: DistanceToTarget
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &114566507644799380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Teleport/DistanceToTarget
+  m_EditorClassIdentifier: 
+  Name: DistanceToTarget
+  Min: 0
+  Max: 100
+  Default: 0
+  Exists: 0
+--- !u!114 &114582340000081660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/TeleArchActive
+  m_EditorClassIdentifier: 
+  Path: event:/TeleArchActive
+  guid: 42419381b073da4e87568f77c881a1e7
+  Banks:
+  - {fileID: 114945470577812202}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 332
+--- !u!114 &114685149382121016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GreenCircleHitsFloor
+  m_EditorClassIdentifier: 
+  Path: event:/GreenCircleHitsFloor
+  guid: e7005f5a487fe4459d60ea849e5bd8ae
+  Banks:
+  - {fileID: 114945470577812202}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1078
+--- !u!114 &114746699101392852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/ambience
+  m_EditorClassIdentifier: 
+  Path: event:/ambience
+  guid: f24b071f8a88e541901d39603e702ada
+  Banks:
+  - {fileID: 114390678835560316}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 517831
+--- !u!114 &114815387646569534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/IcePlaced
+  m_EditorClassIdentifier: 
+  Path: event:/IcePlaced
+  guid: f12fa3da5070624ca98b38e271dc666b
+  Banks:
+  - {fileID: 114945470577812202}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 270
+--- !u!114 &114828372144083772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Teleport/DistanceToTarget
+  m_EditorClassIdentifier: 
+  Name: DistanceToTarget
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &114850429668108712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Teleport/DistanceToTarget
+  m_EditorClassIdentifier: 
+  Name: DistanceToTarget
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &114856761470935068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Restart Button Press
+  m_EditorClassIdentifier: 
+  Path: event:/Restart Button Press
+  guid: 8dcc74eb03d1b14a91bc30c1f2b5e547
+  Banks:
+  - {fileID: 114945470577812202}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1243
+--- !u!114 &114870294759359248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Teleport/DistanceToTarget
+  m_EditorClassIdentifier: 
+  Name: DistanceToTarget
+  Min: 0
+  Max: 100
+  Default: 0
+  Exists: 0
+--- !u!114 &114883581866967562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Teleport/DistanceToTarget
+  m_EditorClassIdentifier: 
+  Name: DistanceToTarget
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &114909172729773318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GlovesWarning
+  m_EditorClassIdentifier: 
+  Path: event:/GlovesWarning
+  guid: f0ef2d53fa90a84baa934951972ce37d
+  Banks:
+  - {fileID: 114945470577812202}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1427
+--- !u!114 &114914725323719504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/MagicCircleYellowRelease
+  m_EditorClassIdentifier: 
+  Path: event:/MagicCircleYellowRelease
+  guid: e502fe6cf109684284e0bd6ae1fcc16c
+  Banks:
+  - {fileID: 114945470577812202}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 265
+--- !u!114 &114918560698021166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/MagicCircleYellow
+  m_EditorClassIdentifier: 
+  Path: event:/MagicCircleYellow
+  guid: 8d82747c1ea06c43b622fc05cde4b7dc
+  Banks:
+  - {fileID: 114945470577812202}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 190
+--- !u!114 &114945470577812202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Interaction.bank
+  m_EditorClassIdentifier: 
+  Path: C:\Unity Projects\Dry-Ice-Loading-Leap-Motion\FMOD\Build\Desktop\Interaction.bank
+  lastModified: 636940838086282834
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 121312
+  - Name: Mobile
+    Value: 287552
+  Exists: 1
+--- !u!114 &114958254115333958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/DoorClose
+  m_EditorClassIdentifier: 
+  Path: event:/DoorClose
+  guid: ae6db5ebf4892043aa5350e35dc3322e
+  Banks:
+  - {fileID: 114945470577812202}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1180

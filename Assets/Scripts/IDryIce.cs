@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IDryIce   {
 
-    void BePlaced();
+    void PlaySound();
 	
 }
