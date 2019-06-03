@@ -11,7 +11,9 @@ public class EventManager : MonoBehaviour
 
     public UnityEvent OnIceGraspedWithNoGloves;
     public UnityEvent OnGlovesGetOn;
-    public bool IceTrayOpen;
+    public UnityEvent OnAlmostDone;
+    public UnityEvent OnDone;
+    public bool IceTrayClosed;
     public bool GlovesOn;
     public bool AllIceLoaded;
     public VRTeleporter teleport;
@@ -109,9 +111,9 @@ public class EventManager : MonoBehaviour
     {
         if (go.name == "DoorsIce")
         {
-            IceTrayOpen = status;
-            Debug.Log(status);
-            if (IceTrayOpen)
+            IceTrayClosed = status; // true = close, false = open
+            //Debug.Log(status);
+            if (IceTrayClosed)
             {
                 IceTrayArrow.SetActive(false);
             }
@@ -130,14 +132,20 @@ public class EventManager : MonoBehaviour
 
         if (!cardboardGetOpend)
             IcePalletsArrow.SetActive(true);
+        if (AllIceLoaded && IceTrayClosed)
+            OnDone.Invoke();
 
     }
 
     void ChechIceCount(int count)
     {
         if (count == 0)
+        {
             AllIceLoaded = true;
+            OnAlmostDone.Invoke();
+        }
         else AllIceLoaded = false;
+        MakeUpdate();
     }
 
 
